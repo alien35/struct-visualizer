@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 const VisualArray = (props: any) => {
@@ -65,10 +64,6 @@ function App() {
     data[iIndex] = data[jIndex];
     data[jIndex] = temp;
     setModifiedInput(JSON.stringify(data));
-    const tempI = iIndex;
-    const tempJ = jIndex;
-    // setIIndex(tempJ);
-    // setJIndex(tempI);
   }
 
   const updateInput = (val: string) => {
