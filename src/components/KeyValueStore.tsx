@@ -1,6 +1,7 @@
 import { Box, Button, Divider, Grid, Paper, TextField } from '@mui/material';
 import React from "react";
 import { styled } from '@mui/material/styles';
+import KeyValuePair from "./KeyValuePair";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -31,7 +32,16 @@ function KeyValueStore() {
     })
   }
 
-  const checkNeedsNewPair = () => {
+  const sleep = async () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 500);
+    })
+  }
+
+  const checkNeedsNewPair = async () => {
+    await sleep();
     const keys = Object.keys(inputs)
     console.log(inputs, 'inputs')
     for (let i = 0; i < keys.length; i ++) {
@@ -49,6 +59,10 @@ function KeyValueStore() {
     })
   }
 
+  React.useEffect(() => {
+    checkNeedsNewPair();
+  }, [inputs]);
+
   const setValue = (e: any, which: string) => {
     setInputs({
       ...inputs,
@@ -57,7 +71,6 @@ function KeyValueStore() {
         value: e.target.value
       }
     })
-    checkNeedsNewPair();
   }
 
   return (
@@ -66,18 +79,10 @@ function KeyValueStore() {
       <div style={{marginTop: 16}}>
         {
           Object.keys(inputs).map((each: string) => (
-            <Grid container>
-              <Grid xs={2} md={6}>
-                <TextField value={inputs[each].key} onChange={(v) => setKey(v, each)} id="outlined-basic" label="Key" variant="outlined" />
-              </Grid>
-              <Grid xs={2} md={6}>
-                <TextField value={inputs[each].value} onChange={(v) => setValue(v, each)} id="outlined-basic" label="Value" variant="outlined" />
-              </Grid>
-            </Grid>
+            <KeyValuePair inputs={inputs} each={each} setKey={setKey} setValue={setValue} />
           ))
         }
       </div>
-      
     </Item>
   )
 }

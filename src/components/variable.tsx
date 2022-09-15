@@ -7,15 +7,15 @@ export const Variable = ({ variable }: any) => {
   const [val, setVal] = React.useState(variable.value);
 
   const [collectedProps, dropRef] = useDrop({
-    accept: 'something',
-    drop: (item: any) => {
-      console.log(item, 'item ma')
-      setVal(item?.value)
-    },
-    collect: (monitor) => ({
-        isOver: monitor
-    })
-})
+      accept: 'something',
+      drop: (item: any) => {
+        console.log(item, 'item ma')
+        setVal(item?.value)
+      },
+      collect: (monitor) => ({
+          isOver: monitor
+      })
+  })
 
   return <Box
   id="variable.id"
