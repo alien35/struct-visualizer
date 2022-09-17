@@ -1,27 +1,9 @@
-import { Box, Button, Divider, Grid, Paper, TextField } from '@mui/material';
+import { Box, Button, Divider, Paper, TextareaAutosize, TextField } from '@mui/material';
 import React from 'react';
 import './App.css';
-import { DndProvider, useDrag, useDrop } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Variable } from './components/variable';
 import { SumAllValuesBetween } from './components/sumAllValuesBetween';
-import { styled } from '@mui/material/styles';
-import KeyValueStore from './components/KeyValueStore';
-
-const VisualArray = (props: any) => {
-  console.log(props, 'rpos')
-  return props.value.map((each: any, index: number) => {
-    let color = "initial";
-    if (props.iIndex !== index && props.jIndex === index) {
-      color = "lightblue";
-    }
-    if (props.iIndex === index) {
-      color = "lightgreen";
-    }
-    console.log(color, 'color')
-    return <span onClick={() => props.onClick(index)} style={{background: color, fontSize: "32px", fontWeight: "600"}} className="each-array-integer">{each}</span>
-  })
-}
+import Variables from './components/Variables';
+import VisualArrayContainer from './components/VisualArrayContainer';
 
 function MainSection() {
 
@@ -29,7 +11,6 @@ function MainSection() {
   const [selectedIterator, setSelectedIterator] = React.useState("i");
   const [iIndex, setIIndex] = React.useState(0);
   const [jIndex, setJIndex] = React.useState(0);
-  const [mode, setMode] = React.useState("for-loop");
   const [modifiedInput, setModifiedInput] = React.useState("");
   const [addingLoop, setAddingLoop] = React.useState(false);
   const [addingInnerLoop, setAddingInnerLoop] = React.useState(false);
@@ -43,18 +24,17 @@ function MainSection() {
   const [defaultVariableValue, setDefaultVariableValue] = React.useState("");
   const [clearingSumRef, setClearingSumRef] = React.useState(false);
 
-  const hasValidInput = (): boolean => {
-    if (!modifiedInput.length) {
-      return false;
-    }
+  const getInputArrays = () => {
     try {
-      if (Array.isArray(JSON.parse(modifiedInput))) {
-        return true;
+      const splits = modifiedInput.split("\n");
+      if (splits.length > 1) {
+        const res = splits.map((each) => JSON.parse(each));
+        return res;
       }
+      return [JSON.parse(splits[0])]
     } catch (err) {
-      return false;
+      return []
     }
-    return false;
   }
 
   const getSumOfAllValuesInBetween = () => {
@@ -67,17 +47,6 @@ function MainSection() {
       return "";
     }
   }
-
-  const [{ opacity }, dragRef] = useDrag(
-    () => ({
-      type: "something",
-      item: { value: getSumOfAllValuesInBetween() },
-      collect: (monitor) => ({
-        opacity: monitor.isDragging() ? 0.5 : 1
-      })
-    }),
-    []
-  )
 
   const onProceedIterator = () => {
     if (selectedIterator === "i") {
@@ -128,10 +97,6 @@ function MainSection() {
     setJIndex(iIndex);
   }
 
-  const onChangeVariableName = (e: any) => {
-    setVariableName(e.target.value);
-  }
-
   const onChangeIIteratorName = (e: any) => {
     setIIteratorName(e.target.value);
   }
@@ -155,20 +120,6 @@ function MainSection() {
     setHasJIterator(false);
   }
 
-  const applyCreateVariable = () => {
-    setVariables([...variables, {
-      name: variableName,
-      value: defaultVariableValue,
-      id: new Date().toISOString()
-    }])
-    setVariableName("");
-    setCreatingVariable(false);
-  }
-
-  const onChangeDefaultVariableValue = (e: any) => {
-    setDefaultVariableValue(e.target.value);
-  }
-
   const onSelectFromOutput = (v: number) => {
     if (selectedIterator === "i") {
       setIIndex(v);
@@ -184,10 +135,6 @@ function MainSection() {
     }, 50)
   }, [iIndex, jIndex, modifiedInput])
 
-  const onKeyDown = (e: any) => {
-    console.log(e, 'eee')
-  }
-  
   React.useEffect(() => {
     window.addEventListener('keydown', (i) => {
       const key = i.key.toLowerCase();
@@ -206,61 +153,29 @@ function MainSection() {
     <div style={{margin: "16px"}}>
       <div>
         <div>
-          <label htmlFor="input">Input</label>
       <div>
-        <textarea value={input} onChange={(e) => updateInput(e.target.value)} id="input" />
+      <TextareaAutosize
+         value={input} onChange={(e) => updateInput(e.target.value)} 
+        aria-label="minimum height"
+        minRows={3}
+        placeholder="Input"
+        style={{ width: 200 }}
+      />
       </div>
-      {
-        hasValidInput() && (
-          <VisualArray onClick={onSelectFromOutput} iIndex={iIndex} jIndex={jIndex} value={JSON.parse(modifiedInput)} />
-        )
-      }
+      <div style={{display: "flex", marginTop: 8, flexDirection: "column"}}>
+        {
+          getInputArrays().map((each) => (
+            <div style={{display: "flex"}}>
+              <VisualArrayContainer hasJIterator={hasJIterator} hasIIterator={hasIIterator} onClick={onSelectFromOutput} iIndex={iIndex} jIndex={jIndex} value={each} />
+            </div>
+          ))
+        }
+      </div>
       <br />
       <br />
       <Divider />
       <br />
-      <h4>Variables</h4>
-      <br />
-      {
-        variables.map((variable: any) => (
-          <Variable variable={variable} />
-        ))
-      }
-      {
-        !creatingVariable && (
-          <Button onClick={() => setCreatingVariable(true)} size="small" variant="outlined">Create variable</Button>
-        )
-      }
-      {
-        creatingVariable && (
-          <Box
-            sx={{
-              display: 'flex',
-              '& > :not(style)': {
-                m: 1,
-                width: 204,
-                height: 164,
-                padding: 1
-              },
-            }}
-          >
-            <Paper square elevation={3}>
-              <h4>Create Variable</h4>
-              <div style={{display: "flex", alignItems: "baseline", marginBottom: "8px"}}>
-                <TextField value={variableName} onChange={onChangeVariableName} id="standard-basic" label="Variable name" variant="standard" />
-              </div>
-              <div style={{display: "flex", alignItems: "baseline", marginBottom: "8px"}}>
-                <TextField value={defaultVariableValue} onChange={onChangeDefaultVariableValue} id="standard-basic" label="Default value" variant="standard" />
-              </div>
-              <Button onClick={() => setCreatingVariable(false)} size="small" variant="outlined">Cancel</Button>
-              <Button onClick={applyCreateVariable} size="small" variant="contained">Create</Button>
-            </Paper>
-          </Box>
-        )
-      }
-      <br />
-      <br />
-      <Divider />
+      <Variables />
       <br />
       {
         !addingLoop && !hasIIterator && (
@@ -389,9 +304,6 @@ function MainSection() {
         )
       }
 
-      <br />
-      <br />
-      <Button variant="outlined" onClick={onReset}>Reset</Button>
         </div>
       </div>
     </div>

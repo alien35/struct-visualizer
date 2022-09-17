@@ -1,6 +1,4 @@
-import { Box, Paper } from "@mui/material"
-import { useDrag, useDrop } from "react-dnd";
-import React from "react";
+import { useDrag } from "react-dnd";
 
 export const SumAllValuesBetween = ({ iIteratorName, jIteratorName, value }: any) => {
 

@@ -2,6 +2,7 @@ import { Box, Button, Divider, Grid, Paper, TextField } from '@mui/material';
 import React from "react";
 import { styled } from '@mui/material/styles';
 import KeyValuePair from "./KeyValuePair";
+import StateContext from '../contexts/StateContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -13,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function KeyValueStore() {
 
-  const [keyVals, setKeyVals] = React.useState([]);
+  const state = React.useContext(StateContext);
 
   const [inputs, setInputs] = React.useState<any>({
     start: {
@@ -73,6 +74,10 @@ function KeyValueStore() {
     })
   }
 
+  if (!state.settings.keyValueStore) {
+    return null;
+  }
+  
   return (
     <Item>
       <h4>Key-value store</h4>
