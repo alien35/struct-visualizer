@@ -1,9 +1,11 @@
 import { Box, Button, Divider, Paper, TextareaAutosize, TextField } from '@mui/material';
 import React from 'react';
 import './App.css';
+import IteratorSelection from './components/IteratorSelection';
 import { SumAllValuesBetween } from './components/sumAllValuesBetween';
 import Variables from './components/Variables';
 import VisualArrayContainer from './components/VisualArrayContainer';
+import StateContext from './contexts/StateContext';
 
 function MainSection() {
 
@@ -16,13 +18,14 @@ function MainSection() {
   const [addingInnerLoop, setAddingInnerLoop] = React.useState(false);
   const [iIteratorName, setIIteratorName] = React.useState("i");
   const [jIteratorName, setJIteratorName] = React.useState("j");
-  const [hasIIterator, setHasIIterator] = React.useState(false);
-  const [hasJIterator, setHasJIterator] = React.useState(false);
-  const [creatingVariable, setCreatingVariable] = React.useState(false);
-  const [variableName, setVariableName] = React.useState("");
-  const [variables, setVariables] = React.useState<any>([]);
-  const [defaultVariableValue, setDefaultVariableValue] = React.useState("");
+  // const [hasIIterator, setHasIIterator] = React.useState(false);
+  // const [hasJIterator, setHasJIterator] = React.useState(false);
   const [clearingSumRef, setClearingSumRef] = React.useState(false);
+
+  const state = React.useContext(StateContext);
+
+  const hasIIterator = state.settings?.primaryIterator;
+  const hasJIterator = state.settings?.secondaryIterator;
 
   const getInputArrays = () => {
     try {
@@ -106,18 +109,13 @@ function MainSection() {
   }
 
   const applyIIterator = () => {
-    setHasIIterator(true);
+    // setHasIIterator(true);
     setAddingLoop(false);
   }
 
   const applyJIterator = () => {
-    setHasJIterator(true);
+    // setHasJIterator(true);
     setAddingInnerLoop(false);
-  }
-
-  const onRemoveLoop = () => {
-    setHasIIterator(false);
-    setHasJIterator(false);
   }
 
   const onSelectFromOutput = (v: number) => {
@@ -176,28 +174,6 @@ function MainSection() {
       <Divider />
       <br />
       <Variables />
-      <br />
-      {
-        !addingLoop && !hasIIterator && (
-          <Button onClick={() => applyIIterator()} size="small" variant="outlined">Add Primary Iterator</Button>
-        )
-      }
-      {
-        !addingLoop && hasIIterator && (
-          <Button onClick={onRemoveLoop} size="small" variant="outlined">Remove Primary Iterator</Button>
-        )
-      }
-      &nbsp;
-      {
-        hasIIterator && !hasJIterator && (
-          <Button onClick={() => applyJIterator()} size="small" variant="outlined">Add Secondary Iterator</Button>
-        )
-      }
-      {
-        !addingInnerLoop && hasJIterator && (
-          <Button onClick={() => setHasJIterator(false)} size="small" variant="outlined">Remove Secondary Iterator</Button>
-        )
-      }
       {
         addingLoop && (
           <Box
@@ -248,39 +224,7 @@ function MainSection() {
       }
       <br />
       <br />
-      {
-        (hasIIterator || hasJIterator) && (
-          <h4>Select iterator</h4>
-        )
-      }
-      {
-        hasIIterator && (
-          <Button variant="outlined" style={{background: selectedIterator === "i" ? "lightgreen" : "initial"}} onClick={() => setSelectedIterator("i")}>i</Button>
-        )
-      }
-      {
-        hasJIterator && (
-          <>
-            &nbsp;
-            <Button variant="outlined" style={{background: selectedIterator === "j" ? "lightgreen" : "initial"}} onClick={() => setSelectedIterator("j")}>j</Button>
-          </>
-        )
-      }
-      {
-        (hasIIterator || hasJIterator) && (
-          <>
-            <br />
-            <br />
-            <Button variant="outlined" onClick={onProceedIterator}>{selectedIterator} ++</Button>
-            <Button variant="outlined" onClick={onRegressIterator}>{selectedIterator} --</Button>
-            {
-              selectedIterator === "j" && (
-                <Button variant="outlined" onClick={onBreak}>Break</Button>
-              )
-            }
-          </>
-        )
-      }
+      <IteratorSelection />
       
       {
         hasIIterator && hasJIterator && (

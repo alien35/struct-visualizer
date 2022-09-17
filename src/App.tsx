@@ -23,15 +23,42 @@ const initialState = {
     keyValueStore: true,
     primaryIterator: true,
     secondaryIterator: true
-  }
+  },
+  iteratorMode: "iterate",
+  indexes: [{i: 0, j: 0}],
+  selectedIterator: "i"
 };
 
 function reducer(state: any, action: any) {
   switch (action.type) {
     case 'update-settings':
       return {
-        settings: {...action.val}
+        settings: {...action.val},
+        iteratorMode: state.iteratorMode,
+        indexes: state.indexes,
+        selectedIterator: state.selectedIterator
       };
+    case 'update-iterator-mode':
+      return {
+        settings: state.settings,
+        iteratorMode: action.val,
+        indexes: state.indexes,
+        selectedIterator: state.selectedIterator
+      }
+    case 'update-indexes':
+      return {
+        settings: state.settings,
+        iteratorMode: state.iteratorMode,
+        indexes: action.val,
+        selectedIterator: state.selectedIterator
+      }
+    case 'update-selected-iterator':
+      return {
+        settings: state.settings,
+        iteratorMode: state.iteratorMode,
+        indexes: state.indexes,
+        selectedIterator: action.val
+      }
     default:
       throw new Error();
   }
