@@ -2,36 +2,37 @@ import { Box, Button, Divider, Paper, TextareaAutosize, TextField } from '@mui/m
 import React from 'react';
 import './App.css';
 import IteratorSelection from './components/IteratorSelection';
+import SlidingWindowOptions from './components/SlidingWindowOptions';
 import { SumAllValuesBetween } from './components/sumAllValuesBetween';
 import Variables from './components/Variables';
 import VisualArrayContainer from './components/VisualArrayContainer';
+import DispatchContext from './contexts/DispatchContext';
 import StateContext from './contexts/StateContext';
 
 function MainSection() {
 
-  const [input, setInput] = React.useState("");
-  const [selectedIterator, setSelectedIterator] = React.useState("i");
-  const [iIndex, setIIndex] = React.useState(0);
-  const [jIndex, setJIndex] = React.useState(0);
-  const [modifiedInput, setModifiedInput] = React.useState("");
+  const state = React.useContext(StateContext);
+  
   const [addingLoop, setAddingLoop] = React.useState(false);
   const [addingInnerLoop, setAddingInnerLoop] = React.useState(false);
   const [iIteratorName, setIIteratorName] = React.useState("i");
   const [jIteratorName, setJIteratorName] = React.useState("j");
-  // const [hasIIterator, setHasIIterator] = React.useState(false);
-  // const [hasJIterator, setHasJIterator] = React.useState(false);
   const [clearingSumRef, setClearingSumRef] = React.useState(false);
 
-  const state = React.useContext(StateContext);
+  const modifiedInput: any = state.modifiedInput;
+  
+  const dispatch = React.useContext(DispatchContext);
 
   const hasIIterator = state.settings?.primaryIterator;
   const hasJIterator = state.settings?.secondaryIterator;
-
+  const iIndex = state.indexes?.[0]?.i;
+  const jIndex = state.indexes?.[0]?.j;
+  
   const getInputArrays = () => {
     try {
       const splits = modifiedInput.split("\n");
       if (splits.length > 1) {
-        const res = splits.map((each) => JSON.parse(each));
+        const res = splits.map((each: any) => JSON.parse(each));
         return res;
       }
       return [JSON.parse(splits[0])]
@@ -51,53 +52,32 @@ function MainSection() {
     }
   }
 
-  const onProceedIterator = () => {
-    if (selectedIterator === "i") {
-      const newVal = iIndex + 1;
-      setIIndex(() => newVal);
-      return;
-    }
-    setJIndex(() => jIndex +1);
-  }
-
-  const onRegressIterator = () => {
-    if (selectedIterator === "i") {
-      setIIndex(() => iIndex -1);
-      return;
-    }
-    setJIndex(() => jIndex -1);
-  }
-
   const triggerSwap = () => {
     const data = JSON.parse(modifiedInput);
     const temp = data[iIndex];
     data[iIndex] = data[jIndex];
     data[jIndex] = temp;
-    setModifiedInput(JSON.stringify(data));
+    dispatch({
+      type: "update-modified-input",
+      val: JSON.stringify(data)
+    })
   }
 
   const triggerSort = () => {
     let data = JSON.parse(modifiedInput);
     data = data.sort((a: any, b: any) => a - b);
-    setModifiedInput(JSON.stringify(data));
+    dispatch({
+      type: "update-modified-input",
+      val: JSON.stringify(data)
+    })
   }
 
   const updateInput = (val: string) => {
-    setInput(val);
-    setModifiedInput(val);
-  }
-
-  const onReset = () => {
-    setJIndex(0);
-    setIIndex(0);
-  }
-
-  const onBreak = () => {
-    if (selectedIterator === "i") {
-      onReset();
-      return;
-    }
-    setJIndex(iIndex);
+    // setInput(val);
+    dispatch({
+      type: "update-input",
+      val
+    })
   }
 
   const onChangeIIteratorName = (e: any) => {
@@ -118,14 +98,6 @@ function MainSection() {
     setAddingInnerLoop(false);
   }
 
-  const onSelectFromOutput = (v: number) => {
-    if (selectedIterator === "i") {
-      setIIndex(v);
-    } else {
-      setJIndex(v);
-    }
-  }
-
   React.useEffect(() => {
     setClearingSumRef(true);
     setTimeout(() => {
@@ -139,7 +111,10 @@ function MainSection() {
       if (key !== "i" && key !== "j") {
         return;
       }
-      setSelectedIterator(key);
+      dispatch({
+        type: "update-selected-iterator",
+        val: key
+      })
     });
 
     return () => {
@@ -153,7 +128,7 @@ function MainSection() {
         <div>
       <div>
       <TextareaAutosize
-         value={input} onChange={(e) => updateInput(e.target.value)} 
+         value={state.input} onChange={(e) => updateInput(e.target.value)} 
         aria-label="minimum height"
         minRows={3}
         placeholder="Input"
@@ -162,9 +137,9 @@ function MainSection() {
       </div>
       <div style={{display: "flex", marginTop: 8, flexDirection: "column"}}>
         {
-          getInputArrays().map((each) => (
+          getInputArrays().map((each: any) => (
             <div style={{display: "flex"}}>
-              <VisualArrayContainer hasJIterator={hasJIterator} hasIIterator={hasIIterator} onClick={onSelectFromOutput} iIndex={iIndex} jIndex={jIndex} value={each} />
+              <VisualArrayContainer hasJIterator={hasJIterator} hasIIterator={hasIIterator} iIndex={iIndex} jIndex={jIndex} value={each} />
             </div>
           ))
         }
@@ -224,6 +199,7 @@ function MainSection() {
       }
       <br />
       <br />
+      <SlidingWindowOptions />
       <IteratorSelection />
       
       {
@@ -236,8 +212,6 @@ function MainSection() {
             <br />
             <Button variant="outlined" onClick={triggerSort}>Sort</Button>
             <br />
-            <br />
-            <h3>Queries</h3>
             <br />
             {
               !clearingSumRef && (

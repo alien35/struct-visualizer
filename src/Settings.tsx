@@ -11,8 +11,6 @@ function Settings() {
   const state = React.useContext(StateContext);
   const dispatch = React.useContext(DispatchContext)
 
-  console.log(state, 'state')
-
   const onChangeState = (which: string) => {
     dispatch({
       type: "update-settings",
@@ -28,6 +26,8 @@ function Settings() {
     <FormGroup>
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("keyValueStore")} checked={state?.settings?.keyValueStore} />} label="Key-value store" />
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("variables")} checked={state?.settings?.variables} />} label="Variables" />
+      <br />
+      <h4>Iteration</h4>
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("primaryIterator")} checked={state?.settings?.primaryIterator} />} label="Primary Iterator" />
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("secondaryIterator")} checked={state?.settings?.secondaryIterator} />} label="Secondary Iterator" />
     </FormGroup>

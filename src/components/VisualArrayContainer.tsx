@@ -34,7 +34,7 @@ const VisualArrayContainer = (props: any) => {
     }
     return <div style={{position: "relative", marginBottom: 12}}>
       <VisualArrayBar index={index} />
-      <VisualArrayContent color={color} each={each} index={index} onClick={props.onClick} />
+      <VisualArrayContent color={color} each={each} index={index} />
       <span style={{position: "absolute", top: 56, left: 28}}>{letter}</span>
     </div>
   })

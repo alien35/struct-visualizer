@@ -1,10 +1,9 @@
-import { Button, Grid, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 import React from "react";
-import { useDrop } from "react-dnd";
 import DispatchContext from '../contexts/DispatchContext';
 import StateContext from '../contexts/StateContext';
 
-function IteratorSelection({ inputs, setKey, each}: any) {
+function IteratorSelection() {
 
   const state = React.useContext(StateContext);
   const dispatch = React.useContext(DispatchContext);
@@ -12,7 +11,6 @@ function IteratorSelection({ inputs, setKey, each}: any) {
 
   const hasIIterator = state.settings?.primaryIterator;
   const hasJIterator = state.settings?.secondaryIterator;
-  const indexes = state.indexes;
 
   const onProceedIterator = () => {
     const rowIndex = 0;
@@ -62,14 +60,8 @@ function IteratorSelection({ inputs, setKey, each}: any) {
     })
   }
 
-  const onBreak = () => {
-    /*
-    if (selectedIterator === "i") {
-      onReset();
-      return;
-    }
-    setJIndex(iIndex);
-    */
+  if (state.iteratorMode !== "iterate") {
+    return null;
   }
 
   return (
@@ -88,7 +80,7 @@ function IteratorSelection({ inputs, setKey, each}: any) {
         hasJIterator && (
           <>
             &nbsp;
-            <Button variant="outlined" style={{background: selectedIterator === "j" ? "lightgreen" : "initial"}} onClick={() => updateSelectedIterator("j")}>j</Button>
+            <Button variant="outlined" style={{background: selectedIterator === "j" ? "lightblue" : "initial"}} onClick={() => updateSelectedIterator("j")}>j</Button>
           </>
         )
       }

@@ -26,7 +26,9 @@ const initialState = {
   },
   iteratorMode: "iterate",
   indexes: [{i: 0, j: 0}],
-  selectedIterator: "i"
+  selectedIterator: "i",
+  input: "",
+  modifiedInput: ""
 };
 
 function reducer(state: any, action: any) {
@@ -36,28 +38,54 @@ function reducer(state: any, action: any) {
         settings: {...action.val},
         iteratorMode: state.iteratorMode,
         indexes: state.indexes,
-        selectedIterator: state.selectedIterator
+        selectedIterator: state.selectedIterator,
+        input: state.input,
+        modifiedInput: state.modifiedInput
       };
     case 'update-iterator-mode':
       return {
         settings: state.settings,
         iteratorMode: action.val,
         indexes: state.indexes,
-        selectedIterator: state.selectedIterator
+        selectedIterator: state.selectedIterator,
+        input: state.input,
+        modifiedInput: state.modifiedInput
       }
     case 'update-indexes':
       return {
         settings: state.settings,
         iteratorMode: state.iteratorMode,
         indexes: action.val,
-        selectedIterator: state.selectedIterator
+        selectedIterator: state.selectedIterator,
+        input: state.input,
+        modifiedInput: state.modifiedInput
       }
     case 'update-selected-iterator':
       return {
         settings: state.settings,
         iteratorMode: state.iteratorMode,
         indexes: state.indexes,
-        selectedIterator: action.val
+        selectedIterator: action.val,
+        input: state.input,
+        modifiedInput: state.modifiedInput
+      }
+    case 'update-input':
+      return {
+        settings: state.settings,
+        iteratorMode: state.iteratorMode,
+        indexes: state.indexes,
+        selectedIterator: state.selectedIterator,
+        input: action.val,
+        modifiedInput: action.val
+      }
+    case 'update-modified-input':
+      return {
+        settings: state.settings,
+        iteratorMode: state.iteratorMode,
+        indexes: state.indexes,
+        selectedIterator: state.selectedIterator,
+        input: state.input,
+        modifiedInput: action.val
       }
     default:
       throw new Error();
@@ -67,8 +95,6 @@ function reducer(state: any, action: any) {
 function App() {
 
   const [state, dispatch] = React.useReducer(reducer, initialState);
-
-  console.log(state, 'state22')
 
   return (
     <DispatchContext.Provider value={dispatch}>

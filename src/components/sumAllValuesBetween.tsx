@@ -1,7 +1,11 @@
 import { useDrag } from "react-dnd";
+import StateContext from "../contexts/StateContext";
+import React from "react";
 
 export const SumAllValuesBetween = ({ iIteratorName, jIteratorName, value }: any) => {
 
+  const state = React.useContext(StateContext);
+  const iteratorMode = state.iteratorMode;
   const [{ opacity }, dragRef] = useDrag(
     () => ({
       type: "something",
@@ -12,6 +16,10 @@ export const SumAllValuesBetween = ({ iIteratorName, jIteratorName, value }: any
     }),
     []
   )
+
+  if (iteratorMode !== "sliding-window") {
+    return null;
+  }
 
   return (
     <>
