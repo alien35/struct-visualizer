@@ -67,12 +67,12 @@ function IteratorSelection() {
   return (
     <>
       {
-        (hasIIterator || hasJIterator) && (
+        (hasJIterator) && (
           <h4>Select iterator</h4>
         )
       }
       {
-        hasIIterator && (
+        hasJIterator && (
           <Button variant="outlined" style={{background: selectedIterator === "i" ? "lightgreen" : "initial"}} onClick={() => updateSelectedIterator("i")}>i</Button>
         )
       }
