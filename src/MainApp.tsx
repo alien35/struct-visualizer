@@ -12,11 +12,11 @@ function MainApp() {
   return (
     <DndProvider backend={HTML5Backend}>
       <MenuAppBar />
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
+      <Grid container>
+        <Grid item xs={6}>
           <MainSection />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <RightSection />
         </Grid>
       </Grid>
