@@ -6,6 +6,7 @@ export const Variable = ({ variable }: any) => {
 
   const [val, setVal] = React.useState(variable.value);
 
+  // eslint-disable-next-line
   const [collectedProps, dropRef] = useDrop({
       accept: 'something',
       drop: (item: any) => {

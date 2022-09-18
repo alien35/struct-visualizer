@@ -5,6 +5,7 @@ import Settings from './Settings';
 import MainApp from './MainApp';
 import DispatchContext from './contexts/DispatchContext';
 import StateContext from './contexts/StateContext';
+import RichTextEditor from 'react-rte';
 
 const router = createBrowserRouter([
   {
@@ -22,13 +23,16 @@ const initialState = {
     variables: true,
     keyValueStore: true,
     primaryIterator: true,
-    secondaryIterator: true
+    secondaryIterator: true,
+    scratchpad: true,
+    sort: true
   },
   iteratorMode: "iterate",
   indexes: [{i: 0, j: 0}],
   selectedIterator: "i",
   input: "",
-  modifiedInput: ""
+  modifiedInput: "",
+  scratchpadInput: RichTextEditor.createValueFromString("", 'html')
 };
 
 function reducer(state: any, action: any) {
@@ -40,7 +44,8 @@ function reducer(state: any, action: any) {
         indexes: state.indexes,
         selectedIterator: state.selectedIterator,
         input: state.input,
-        modifiedInput: state.modifiedInput
+        modifiedInput: state.modifiedInput,
+        scratchpadInput: state.scratchpadInput
       };
     case 'update-iterator-mode':
       return {
@@ -49,7 +54,8 @@ function reducer(state: any, action: any) {
         indexes: state.indexes,
         selectedIterator: state.selectedIterator,
         input: state.input,
-        modifiedInput: state.modifiedInput
+        modifiedInput: state.modifiedInput,
+        scratchpadInput: state.scratchpadInput
       }
     case 'update-indexes':
       return {
@@ -58,7 +64,8 @@ function reducer(state: any, action: any) {
         indexes: action.val,
         selectedIterator: state.selectedIterator,
         input: state.input,
-        modifiedInput: state.modifiedInput
+        modifiedInput: state.modifiedInput,
+        scratchpadInput: state.scratchpadInput
       }
     case 'update-selected-iterator':
       return {
@@ -67,7 +74,8 @@ function reducer(state: any, action: any) {
         indexes: state.indexes,
         selectedIterator: action.val,
         input: state.input,
-        modifiedInput: state.modifiedInput
+        modifiedInput: state.modifiedInput,
+        scratchpadInput: state.scratchpadInput
       }
     case 'update-input':
       return {
@@ -76,7 +84,8 @@ function reducer(state: any, action: any) {
         indexes: state.indexes,
         selectedIterator: state.selectedIterator,
         input: action.val,
-        modifiedInput: action.val
+        modifiedInput: action.val,
+        scratchpadInput: state.scratchpadInput
       }
     case 'update-modified-input':
       return {
@@ -85,7 +94,18 @@ function reducer(state: any, action: any) {
         indexes: state.indexes,
         selectedIterator: state.selectedIterator,
         input: state.input,
-        modifiedInput: action.val
+        modifiedInput: action.val,
+        scratchpadInput: state.scratchpadInput
+      }
+    case 'update-scratchpad-input':
+      return {
+        settings: state.settings,
+        iteratorMode: state.iteratorMode,
+        indexes: state.indexes,
+        selectedIterator: state.selectedIterator,
+        input: state.input,
+        modifiedInput: state.modifiedInput,
+        scratchpadInput: action.val
       }
     default:
       throw new Error();

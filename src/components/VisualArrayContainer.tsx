@@ -26,7 +26,7 @@ const VisualArrayContainer = (props: any) => {
     if (!hasIIterator) {
       color = "initial";
     }
-    if (selectIIndex === index && selectJIndex === index && hasIIterator) {
+    if (selectIIndex === index && selectJIndex === index && hasIIterator && hasJIterator) {
       letter = "i,j"
     }
     if (!hasIIterator) {

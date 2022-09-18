@@ -1,8 +1,10 @@
 import { Box, Button, Divider, Paper, TextareaAutosize, TextField } from '@mui/material';
 import React from 'react';
 import './App.css';
+import SwapIandJ from './components/Iteration/SwapIandJ';
 import IteratorSelection from './components/IteratorSelection';
 import SlidingWindowOptions from './components/SlidingWindowOptions';
+import Sorter from './components/Sorter';
 import { SumAllValuesBetween } from './components/sumAllValuesBetween';
 import Variables from './components/Variables';
 import VisualArrayContainer from './components/VisualArrayContainer';
@@ -50,26 +52,6 @@ function MainSection() {
     } catch (err) {
       return "";
     }
-  }
-
-  const triggerSwap = () => {
-    const data = JSON.parse(modifiedInput);
-    const temp = data[iIndex];
-    data[iIndex] = data[jIndex];
-    data[jIndex] = temp;
-    dispatch({
-      type: "update-modified-input",
-      val: JSON.stringify(data)
-    })
-  }
-
-  const triggerSort = () => {
-    let data = JSON.parse(modifiedInput);
-    data = data.sort((a: any, b: any) => a - b);
-    dispatch({
-      type: "update-modified-input",
-      val: JSON.stringify(data)
-    })
   }
 
   const updateInput = (val: string) => {
@@ -120,7 +102,7 @@ function MainSection() {
     return () => {
       // window.removeEventListener('keydown', handleUserKeyPress);
     };
-  }, [])
+  }, [dispatch])
 
   return (
     <div style={{margin: "16px"}}>
@@ -202,23 +184,16 @@ function MainSection() {
       <SlidingWindowOptions />
       <IteratorSelection />
       
+      <br />
+      <SwapIandJ />
+      <br />
+      <Sorter />
+      <br />
+      <br />
+      
       {
-        hasIIterator && hasJIterator && (
-          <>
-            <br />
-            <br />
-            <h4>Mutations</h4>
-            <Button variant="outlined" onClick={triggerSwap}>Swap {iIteratorName} and {jIteratorName}</Button>
-            <br />
-            <Button variant="outlined" onClick={triggerSort}>Sort</Button>
-            <br />
-            <br />
-            {
-              !clearingSumRef && (
-                <SumAllValuesBetween iIteratorName={iIteratorName} jIteratorName={jIteratorName} value={getSumOfAllValuesInBetween()} />
-              )
-            }
-          </>
+        !clearingSumRef && (
+          <SumAllValuesBetween iIteratorName={iIteratorName} jIteratorName={jIteratorName} value={getSumOfAllValuesInBetween()} />
         )
       }
 

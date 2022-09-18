@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 
 function Key({ inputs, setKey, each}: any) {
 
+  // eslint-disable-next-line
   const [collectedProps, dropRef] = useDrop({
       accept: 'something',
       drop: (item: any) => {

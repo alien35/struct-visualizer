@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Paper, TextField } from '@mui/material';
+import { Paper } from '@mui/material';
 import React from "react";
 import { styled } from '@mui/material/styles';
 import KeyValuePair from "./KeyValuePair";
@@ -41,26 +41,27 @@ function KeyValueStore() {
     })
   }
 
-  const checkNeedsNewPair = async () => {
-    await sleep();
-    const keys = Object.keys(inputs)
-    console.log(inputs, 'inputs')
-    for (let i = 0; i < keys.length; i ++) {
-      if (!inputs[keys[i]].key && !inputs[keys[i]].value) {
-        return;
-      }
-    }
-    console.log("DONE MATCH")
-    setInputs({
-      ...inputs,
-      [new Date().toISOString()]: {
-        key: "",
-        value: ""
-      }
-    })
-  }
+  
 
   React.useEffect(() => {
+    const checkNeedsNewPair = async () => {
+      await sleep();
+      const keys = Object.keys(inputs)
+      console.log(inputs, 'inputs')
+      for (let i = 0; i < keys.length; i ++) {
+        if (!inputs[keys[i]].key && !inputs[keys[i]].value) {
+          return;
+        }
+      }
+      console.log("DONE MATCH")
+      setInputs({
+        ...inputs,
+        [new Date().toISOString()]: {
+          key: "",
+          value: ""
+        }
+      })
+    }
     checkNeedsNewPair();
   }, [inputs]);
 

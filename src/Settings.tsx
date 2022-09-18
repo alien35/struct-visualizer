@@ -26,6 +26,8 @@ function Settings() {
     <FormGroup>
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("keyValueStore")} checked={state?.settings?.keyValueStore} />} label="Key-value store" />
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("variables")} checked={state?.settings?.variables} />} label="Variables" />
+      <FormControlLabel control={<Checkbox onClick={() => onChangeState("sort")} checked={state?.settings?.sort} />} label="Sort" />
+      <FormControlLabel control={<Checkbox onClick={() => onChangeState("scratchpad")} checked={state?.settings?.scratchpad} />} label="Scratchpad" />
       <br />
       <h4>Iteration</h4>
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("primaryIterator")} checked={state?.settings?.primaryIterator} />} label="Primary Iterator" />

@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import React from "react";
 import DispatchContext from '../contexts/DispatchContext';
 import StateContext from '../contexts/StateContext';
+import SlidingWindowIteration from './SlidingWindow/SlidingWindowIteration';
 
 function SlidingWindowOptions() {
 
@@ -55,6 +56,7 @@ function SlidingWindowOptions() {
       <h4>Sliding Window</h4>
       <Button variant="outlined" onClick={moveWindowLeft}>Move window to the left</Button>
       <Button variant="outlined" onClick={moveWindowRight}>Move window to the right</Button>
+      <SlidingWindowIteration />
     </>
   )
 }

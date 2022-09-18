@@ -17,6 +17,8 @@ export const SumAllValuesBetween = ({ iIteratorName, jIteratorName, value }: any
     []
   )
 
+  console.log(iteratorMode, 'iteratormode')
+
   if (iteratorMode !== "sliding-window") {
     return null;
   }
