@@ -23,7 +23,7 @@ function SwapIandJ() {
     })
   }
 
-  if (state.iteratorMode !== "iterate") {
+  if (state.iteratorMode !== "iterate" || !state.settings?.swapIandJ) {
     return null;
   }
 
