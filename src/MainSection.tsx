@@ -6,6 +6,7 @@ import IteratorSelection from './components/IteratorSelection';
 import SlidingWindowOptions from './components/SlidingWindowOptions';
 import Sorter from './components/Sorter';
 import { SumAllValuesBetween } from './components/sumAllValuesBetween';
+import TreeDrawing from './components/Tree/treeDrawing';
 import Variables from './components/Variables';
 import VisualArrayContainer from './components/VisualArrayContainer';
 import DispatchContext from './contexts/DispatchContext';
@@ -196,7 +197,7 @@ function MainSection() {
           <SumAllValuesBetween iIteratorName={iIteratorName} jIteratorName={jIteratorName} value={getSumOfAllValuesInBetween()} />
         )
       }
-
+      <TreeDrawing />
         </div>
       </div>
     </div>

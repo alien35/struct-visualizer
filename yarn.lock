@@ -3080,6 +3080,11 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
 
+binary-tree-visualizer@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/binary-tree-visualizer/-/binary-tree-visualizer-2.1.5.tgz#4dd9f0e4e9a98218390354efaa4f94237ebbbe71"
+  integrity sha512-j0otdj8To0Qmk8e1BOQ6zA/SeYwm9wtZyDvYJeSqrxiss2rnfU1J04Ax97fDmV0waWmiPpC4CrdpQySqIorGxw==
+
 bluebird@^3.5.5:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
