@@ -1,8 +1,12 @@
 import React from "react";
-import { BinarySearchTreeNode, BinaryTreeNode, drawBinaryTree } from 'binary-tree-visualizer';
+import { BinarySearchTreeNode, drawBinaryTree } from 'binary-tree-visualizer';
+import StateContext from "../../contexts/StateContext";
 
 
 function TreeDrawing() {
+
+  const state = React.useContext(StateContext);
+  const input = state.modifiedInput;
 
   const node = React.useRef();
 
@@ -54,21 +58,29 @@ function TreeDrawing() {
   }
 
   React.useEffect(() => {
-    // const path = [1,null,2,3];
-    const path = [1, null, 2, 3, null, 4, 5, null, 6];
-    // 1, 2, 4,8
-    // always start at leftmost active node
-    // @ts-ignore
-    const bfsPath = prepareBfs(path);
-    // Init a new root binary tree node
-    // @ts-ignore
-    const root = new BinarySearchTreeNode<number>(bfsPath[0][0]);
-    traverse(bfsPath, root, 1, 0);
-    const target =  document.querySelector('canvas')
-    if (target) {
-      drawBinaryTree(root, target);
+    let arr = null;
+    try {
+      arr = JSON.parse(input);
+    } catch (err) {
+      return;
     }
-  }, []);
+    if (arr && Array.isArray(arr)) {
+      const path = arr;
+      // 1, 2, 4,8
+      // always start at leftmost active node
+      // @ts-ignore
+      const bfsPath = prepareBfs(path);
+      // Init a new root binary tree node
+      // @ts-ignore
+      const root = new BinarySearchTreeNode<number>(bfsPath[0][0]);
+      traverse(bfsPath, root, 1, 0);
+      const target =  document.querySelector('canvas')
+      if (target) {
+        drawBinaryTree(root, target);
+      }
+      console.log("DRAWINGGG")
+    }
+  }, [input]);
 
   return (
     <div id="tree-drawing">
