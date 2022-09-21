@@ -7,8 +7,7 @@ function TreeDrawing() {
 
   const state = React.useContext(StateContext);
   const input = state.modifiedInput;
-
-  const node = React.useRef();
+  const showTreeVisualizer = state.settings?.treeVisualizer;
 
   const prepareBfs = (path: number[]) => {
     const result: any[] = [];
@@ -35,29 +34,28 @@ function TreeDrawing() {
     return result;
   }
 
-  const traverse = (arr: number[][], prevNode: any, index: number, offset: number) => {
-    if (!Array.isArray(arr[index])) {
-      return;
-    }
-    const left = arr[index][0 + offset];
-    const right = arr[index][1 + offset];
-    console.log(left, 'arrbro', index, offset)
-    if (typeof left === "number") {
-      prevNode.left = new BinarySearchTreeNode<number>(left);
-      traverse(arr, prevNode.left, index + 1, 0);
-    }
-    let rightOffset = 2;
-    if (typeof left !== "number") {
-      rightOffset = 0;
-    }
-    if (typeof right === "number") {
-      prevNode.right = new BinarySearchTreeNode<number>(right);
-      traverse(arr, prevNode.right, index + 1, rightOffset);
-    }
-   
-  }
-
+  
   React.useEffect(() => {
+    const traverse = (arr: number[][], prevNode: any, index: number, offset: number) => {
+      if (!Array.isArray(arr[index])) {
+        return;
+      }
+      const left = arr[index][0 + offset];
+      const right = arr[index][1 + offset];
+      if (typeof left === "number") {
+        prevNode.left = new BinarySearchTreeNode<number>(left);
+        traverse(arr, prevNode.left, index + 1, 0);
+      }
+      let rightOffset = 2;
+      if (typeof left !== "number") {
+        rightOffset = 0;
+      }
+      if (typeof right === "number") {
+        prevNode.right = new BinarySearchTreeNode<number>(right);
+        traverse(arr, prevNode.right, index + 1, rightOffset);
+      }
+    }
+
     let arr = null;
     try {
       arr = JSON.parse(input);
@@ -78,9 +76,12 @@ function TreeDrawing() {
       if (target) {
         drawBinaryTree(root, target);
       }
-      console.log("DRAWINGGG")
     }
   }, [input]);
+
+  if (!showTreeVisualizer) {
+    return null;
+  }
 
   return (
     <div id="tree-drawing">
