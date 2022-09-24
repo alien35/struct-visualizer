@@ -107,24 +107,31 @@ function TreeDrawing() {
   }
 
   React.useEffect(() => {
-    const bfsTraverse = (node: any[], path: number[][], depth: number) => {
+    const bfsTraverse = (node: any[], path: number[][], depth: number, simplePath: TreeNode[]) => {
       if (!path[depth]) {
         return;
       }
       let offset = 0;
       const nextNodes = [];
+      const nextSimpleNodes: TreeNode[] = [];
       for (let i = 0; i < node.length; i ++) {
         if (typeof path[depth][offset] === "number") {
           node[i].left = new BinarySearchTreeNode<number>(path[depth][offset]);
+          simplePath[i].left = new TreeNode(path[depth][offset]);
           nextNodes.push(node[i].left);
+          // @ts-ignore
+          nextSimpleNodes.push(simplePath[i].left);
         }
         if (typeof path[depth][offset + 1] === "number") {
           node[i].right = new BinarySearchTreeNode<number>(path[depth][offset + 1]);
+          simplePath[i].right = new TreeNode(path[depth][offset + 1]);
           nextNodes.push(node[i].right);
+          // @ts-ignore
+          nextSimpleNodes.push(simplePath[i].right);
         }
         offset += 2;
       }
-      bfsTraverse(nextNodes, path, depth + 1);
+      bfsTraverse(nextNodes, path, depth + 1, nextSimpleNodes);
     }
 
     let arr = null;
@@ -146,7 +153,7 @@ function TreeDrawing() {
       for (let i = 1; i < bfsPath.length; i ++) {
         
       }
-      bfsTraverse([root], bfsPath, 1);
+      bfsTraverse([root], bfsPath, 1, [rootNode]);
       const target =  document.querySelector('canvas')
       if (target) {
         drawBinaryTree(root, target, options);
