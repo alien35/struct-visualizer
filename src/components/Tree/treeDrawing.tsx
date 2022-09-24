@@ -106,51 +106,22 @@ function TreeDrawing() {
     setPostorderData(result);
   }
 
-  /*
-  const traverse = (arr: number[][], prevNode: any, index: number, offset: number, node: TreeNode, timesMovedRight: number) => {
-      if (!Array.isArray(arr[index])) {
-        return;
-      }
-      if (!arr[index].length) {
-        return;
-      }
-      const leftIndexForBeginning = offset === 0 ? offset : Math.pow(2, offset);
-      const rightOffsetToUse = 1 + leftIndexForBeginning;
-      const left = arr[index][offset];
-      const right = arr[index][rightOffsetToUse];
-      if (node.val === 3) {
-        console.log('num found', arr[index], offset, "comp", left, right)
-      }
-      if (typeof left === "number") {
-        prevNode.left = new BinarySearchTreeNode<number>(left);
-        node.left = new TreeNode(left);
-        const leftOffset = offset > 0 ? Math.pow(2, offset) : 0;
-        traverse(arr, prevNode.left, index + 1, leftOffset, node.left, timesMovedRight);
-      }
-      if (typeof right === "number") {
-        prevNode.right = new BinarySearchTreeNode<number>(right);
-        node.right = new TreeNode(right);
-        const check2 = offset === 0 ? 1 : 0;
-        // offset is what they should expect their left-side offset to be coming up.
-        traverse(arr, prevNode.right, index + 1, check2, node.right, timesMovedRight + 1);
-      }
-    }
-    */
-  
   React.useEffect(() => {
     const bfsTraverse = (node: any[], path: number[][], depth: number) => {
       if (!path[depth]) {
         return;
       }
       let offset = 0;
-      console.log(path[depth][offset], 'huhhh', node)
       const nextNodes = [];
       for (let i = 0; i < node.length; i ++) {
-        console.log(path[depth][offset], 'depth')
-        node[i].left = new BinarySearchTreeNode<number>(path[depth][offset]);
-        node[i].right = new BinarySearchTreeNode<number>(path[depth][offset + 1]);
-        nextNodes.push(node[i].left);
-        nextNodes.push(node[i].right);
+        if (typeof path[depth][offset] === "number") {
+          node[i].left = new BinarySearchTreeNode<number>(path[depth][offset]);
+          nextNodes.push(node[i].left);
+        }
+        if (typeof path[depth][offset + 1] === "number") {
+          node[i].right = new BinarySearchTreeNode<number>(path[depth][offset + 1]);
+          nextNodes.push(node[i].right);
+        }
         offset += 2;
       }
       bfsTraverse(nextNodes, path, depth + 1);
@@ -168,7 +139,6 @@ function TreeDrawing() {
       // always start at leftmost active node
       // @ts-ignore
       const bfsPath = prepareBfs(path);
-      console.log(bfsPath, 'bfsPath')
       // Init a new root binary tree node
       // @ts-ignore
       const root = new BinarySearchTreeNode<number>(bfsPath[0][0]);
@@ -177,7 +147,6 @@ function TreeDrawing() {
         
       }
       bfsTraverse([root], bfsPath, 1);
-      // traverse(bfsPath, root, 1, 0, rootNode, 0);
       const target =  document.querySelector('canvas')
       if (target) {
         drawBinaryTree(root, target, options);
