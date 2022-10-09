@@ -11,22 +11,45 @@ function Variables() {
   const [variableName, setVariableName] = React.useState("");
   const [variables, setVariables] = React.useState<any>([]);
   const [defaultVariableValue, setDefaultVariableValue] = React.useState("");
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [variableEditId, setVariableEditId] = React.useState("");
   const onChangeVariableName = (e: any) => {
     setVariableName(e.target.value);
   }
 
   const applyCreateVariable = () => {
-    setVariables([...variables, {
+    setVariables([...variables.filter((variable: any) => variable.id !== variableEditId), {
       name: variableName,
       value: defaultVariableValue,
       id: new Date().toISOString()
     }])
+    setVariableEditId("");
     setVariableName("");
+    setDefaultVariableValue("");
     setCreatingVariable(false);
   }
 
   const onChangeDefaultVariableValue = (e: any) => {
     setDefaultVariableValue(e.target.value);
+  }
+
+  const clearVariable = (id: string) => {
+    setVariables(variables.filter((variable: any) => variable.id !== id));
+  }
+
+  const onCancel = () => {
+    setCreatingVariable(false);
+    setVariableName("");
+    setDefaultVariableValue("");
+    setIsEditing(false);
+  }
+
+  const onRequestEdit = (variable: any) => {
+    setIsEditing(true);
+    setCreatingVariable(true);
+    setVariableName(variable.name);
+    setDefaultVariableValue(variable.value);
+    setVariableEditId(variable.id);
   }
 
   if (!state.settings.variables) {
@@ -39,12 +62,14 @@ function Variables() {
       <br />
       {
         variables.map((variable: any) => (
-          <Variable variable={variable} />
+          <Variable
+            onRequestEdit={() => onRequestEdit(variable)}
+            onRemove={() => clearVariable(variable.id)} variable={variable} />
         ))
       }
       {
         !creatingVariable && (
-          <Button onClick={() => setCreatingVariable(true)} size="small" variant="outlined">Create variable</Button>
+          <Button onClick={() => setCreatingVariable(true)} size="small" variant="outlined">{isEditing ? "Edit" : "Create"} variable</Button>
         )
       }
       {
@@ -61,15 +86,15 @@ function Variables() {
             }}
           >
             <Paper square elevation={3}>
-              <h4>Create Variable</h4>
+              <h4>{isEditing ? "Edit" : "Create"} Variable</h4>
               <div style={{display: "flex", alignItems: "baseline", marginBottom: "8px"}}>
                 <TextField value={variableName} onChange={onChangeVariableName} id="standard-basic" label="Variable name" variant="standard" />
               </div>
               <div style={{display: "flex", alignItems: "baseline", marginBottom: "8px"}}>
                 <TextField value={defaultVariableValue} onChange={onChangeDefaultVariableValue} id="standard-basic" label="Default value" variant="standard" />
               </div>
-              <Button onClick={() => setCreatingVariable(false)} size="small" variant="outlined">Cancel</Button>
-              <Button onClick={applyCreateVariable} size="small" variant="contained">Create</Button>
+              <Button onClick={onCancel} size="small" variant="outlined">Cancel</Button>
+              <Button onClick={applyCreateVariable} size="small" variant="contained">{isEditing ? "Edit" : "Create"}</Button>
             </Paper>
           </Box>
         )

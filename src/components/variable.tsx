@@ -2,9 +2,13 @@ import { Box, Paper } from "@mui/material"
 import { useDrop } from "react-dnd";
 import React from "react";
 
-export const Variable = ({ variable }: any) => {
+export const Variable = ({ variable, onRemove, onRequestEdit }: any) => {
 
   const [val, setVal] = React.useState(variable.value);
+
+  React.useEffect(() => {
+    setVal(variable.value);
+  }, [variable]);
 
   // eslint-disable-next-line
   const [collectedProps, dropRef] = useDrop({
@@ -29,8 +33,9 @@ export const Variable = ({ variable }: any) => {
     },
   }}
 >
-  <Paper square elevation={3}>
-    <div key={variable.id}>
+  <Paper style={{display: "flex"}} square elevation={3}>
+    <div style={{color: "darkred", cursor: "pointer"}} onClick={onRemove}>X</div>&nbsp;
+    <div onClick={onRequestEdit} key={variable.id}>
       {variable.name}: {val}
     </div>
   </Paper>

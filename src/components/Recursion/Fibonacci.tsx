@@ -44,7 +44,6 @@ function Fibonacci() {
           }
         }
       }
-      console.log(row, 'row')
       result.push(<div style={{display: "flex"}}>{row.map((each, index) => {
         let res = [];
         if (each === 0) {
@@ -73,6 +72,10 @@ function Fibonacci() {
       return;
     }
     const num = parseInt(e.target.value, 10);
+    if (num > 13) {
+      setInputVal("");
+      return alert("Only go up to 13 please");
+    }
     if (isNaN(num)) {
       return;
     }
