@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import SwapIandJ from './components/Iteration/SwapIandJ';
 import IteratorSelection from './components/IteratorSelection';
+import Fibonacci from './components/Recursion/Fibonacci';
 import SlidingWindowOptions from './components/SlidingWindowOptions';
 import Sorter from './components/Sorter';
 import { SumAllValuesBetween } from './components/sumAllValuesBetween';
@@ -204,6 +205,7 @@ function MainSection() {
       </div>
     </div>
     <TreeDrawing />
+    <Fibonacci />
     </>
   )
 
