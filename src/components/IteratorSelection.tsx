@@ -60,10 +60,6 @@ function IteratorSelection() {
     })
   }
 
-  if (state.iteratorMode !== "iterate") {
-    return null;
-  }
-
   return (
     <>
       {
@@ -73,14 +69,14 @@ function IteratorSelection() {
       }
       {
         hasJIterator && (
-          <Button variant="outlined" style={{background: selectedIterator === "i" ? "lightgreen" : "initial"}} onClick={() => updateSelectedIterator("i")}>i</Button>
+          <Button variant="outlined" style={{fontWeight: 600, background: selectedIterator === "i" ? "#f2f200" : "initial", color: "black"}} onClick={() => updateSelectedIterator("i")}>i</Button>
         )
       }
       {
         hasJIterator && (
           <>
             &nbsp;
-            <Button variant="outlined" style={{background: selectedIterator === "j" ? "lightblue" : "initial"}} onClick={() => updateSelectedIterator("j")}>j</Button>
+            <Button variant="outlined" style={{color: "black", fontWeight: 600, background: selectedIterator === "j" ? "#ff8080" : "initial"}} onClick={() => updateSelectedIterator("j")}>j</Button>
           </>
         )
       }

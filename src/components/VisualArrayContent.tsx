@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import DispatchContext from "../contexts/DispatchContext";
@@ -9,6 +10,9 @@ const VisualArrayContent = (props: any) => {
   const dispatch = React.useContext(DispatchContext)
   const selectedIterator = state.selectedIterator;
 
+  const selectSlidingJIIndex = state.slidingJIndexes?.[0]?.i;
+  const selectSlidingJJIndex = state.slidingJIndexes?.[0]?.j;
+  
   const [{ dragColor }, dragRef] = useDrag(
     () => ({
       type: "visual-array-bar",
@@ -35,17 +39,24 @@ const VisualArrayContent = (props: any) => {
       }
     })
 
-    dispatch({
-      type: "update-indexes",
-      val: newVal
-    })
-
+    if (selectedIterator === "i") {
+      dispatch({
+        type: "update-indexes",
+        val: newVal
+      })
+    } else {
+      dispatch({
+        type: "update-sliding-j-indexes",
+        val: newVal
+      })
+    }
     if (props.index !== item.value) {
       dispatch({
         type: "update-iterator-mode",
         val: "sliding-window"
       })
     }
+    
   }
 
   const [{isOver}, dropRef] = useDrop({
@@ -84,22 +95,33 @@ const VisualArrayContent = (props: any) => {
     })
   }
 
+  const isInI = () => {
+    return props.index >= state.indexes[0]?.i && props.index <= state.indexes[0]?.j;
+  }
+
+  const isInJ = () => {
+    return props.index >= state.slidingJIndexes[0]?.i && props.index <= state.slidingJIndexes[0]?.j;
+  }
+
   const getBackground = () => {
-    if (state.iteratorMode === "sliding-window") {
-      if (props.index < state.indexes[0]?.i) {
-        return ""
-      }
-      if (props.index > state.indexes[0]?.j) {
-        return ""
-      }
-      return "lightgrey"
+    if (state.iteratorMode !== "sliding-window") {
+      return dragColor || isOver || props.color;
     }
-    return dragColor || isOver || props.color;
+    if (isInJ() && isInI()) {
+      return "#eeb900";
+    }
+    if (isInI()) {
+      return "#f2f200"
+    }
+    if (isInJ()) {
+      return "#ff8080";
+    }
+    return "";
   }
 
   return (
-    <div ref={dropRef}>
-      <div ref={dragRef} onClick={onClick} style={{background: getBackground(), width: "32px", fontSize: "32px", fontWeight: "600", padding: 4, display: "flex", justifyContent: "center"}} className="each-array-integer">{props.each}</div>
+    <div style={{background: getBackground()}} ref={dropRef}>
+      <div ref={dragRef} onClick={onClick} style={{width: "32px", fontSize: "32px", fontWeight: "600", padding: 4, display: "flex", justifyContent: "center"}} className="each-array-integer">{props.each}</div>
     </div>
   )
 }
