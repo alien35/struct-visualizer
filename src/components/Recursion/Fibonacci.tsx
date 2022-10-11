@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-loop-func */
+
 import React from "react";
 
 function Fibonacci() {
   const [inputVal, setInputVal] = React.useState("");
-  const [sum, setSum] = React.useState(0);
+  // const [sum, setSum] = React.useState(0);
 
   
   const getBreakdown = () => {
@@ -17,6 +20,7 @@ function Fibonacci() {
 
     let sumCount = 0;
     
+    /* tslint:disable-next-line */
     const traverse = (num: number): any[] => {
       if (num === 1) {
         return [<div>1</div>]
@@ -24,6 +28,7 @@ function Fibonacci() {
       if (num <= 0) {
         return [<div>0</div>]
       }
+      /* tslint:disable-next-line */
       return [...traverse(num - 1), ...traverse(num - 2)]
     }
     const queue: number[] = [num];

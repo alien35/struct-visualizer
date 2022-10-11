@@ -7,7 +7,7 @@ import Fibonacci from './components/Recursion/Fibonacci';
 import SlidingWindowOptions from './components/SlidingWindowOptions';
 import Sorter from './components/Sorter';
 import { SumAllValuesBetween } from './components/sumAllValuesBetween';
-import OrderExamples from './components/Tree/OrderExamples';
+// import OrderExamples from './components/Tree/OrderExamples';
 import TreeDrawing from './components/Tree/treeDrawing';
 import Variables from './components/Variables';
 import VisualArrayContainer from './components/VisualArrayContainer';
@@ -38,7 +38,7 @@ function MainSection() {
       const splits = modifiedInput.split("\n");
       console.log(splits, 'splits here')
       const res = splits
-        .map((each: string) => each.replace(/\'/g, '\"'))
+        .map((each: string) => each.replace(/'/g, '"'))
         .map((each: string) => JSON.parse(each));
       console.log(res, 'res bro')
         return res;

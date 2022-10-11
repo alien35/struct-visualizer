@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import DispatchContext from "../contexts/DispatchContext";
@@ -10,8 +9,8 @@ const VisualArrayContent = (props: any) => {
   const dispatch = React.useContext(DispatchContext)
   const selectedIterator = state.selectedIterator;
 
-  const selectSlidingJIIndex = state.slidingJIndexes?.[0]?.i;
-  const selectSlidingJJIndex = state.slidingJIndexes?.[0]?.j;
+  // const selectSlidingJIIndex = state.slidingJIndexes?.[0]?.i;
+  // const selectSlidingJJIndex = state.slidingJIndexes?.[0]?.j;
   
   const [{ dragColor }, dragRef] = useDrag(
     () => ({
