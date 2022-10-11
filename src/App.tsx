@@ -1,20 +1,29 @@
 import React from 'react';
 import './App.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, useRouteError } from 'react-router-dom';
 import Settings from './Settings';
 import MainApp from './MainApp';
 import DispatchContext from './contexts/DispatchContext';
 import StateContext from './contexts/StateContext';
 import RichTextEditor from 'react-rte';
 
+function ErrorBoundary() {
+  let error = useRouteError();
+  console.error(error);
+  // Uncaught ReferenceError: path is not defined
+  return <div>Something went wrong. Please refresh the screen. The error is in the console.</div>;
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainApp />,
+    errorElement: <ErrorBoundary />
   },
   {
     path: "/settings",
     element: <Settings />,
+    errorElement: <ErrorBoundary />
   },
 ]);
 

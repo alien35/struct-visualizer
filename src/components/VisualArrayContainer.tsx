@@ -13,7 +13,6 @@ const VisualArrayContainer = (props: any) => {
   const selectIIndex = state.indexes?.[0]?.i;
   const selectJIndex = state.indexes?.[0]?.j;
 
-  
   const mapped = props.value.map((each: any, index: number) => {
     let color = "initial";
     let letter = "";
@@ -48,6 +47,7 @@ const VisualArrayContainer = (props: any) => {
       <span style={{position: "absolute", top: 56, left: 28}}>{letter}</span>
     </div>
   })
+
   return (
     <div style={{display: "flex", position: "relative"}}>
       {mapped}

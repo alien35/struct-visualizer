@@ -36,11 +36,12 @@ function MainSection() {
   const getInputArrays = () => {
     try {
       const splits = modifiedInput.split("\n");
-      if (splits.length > 1) {
-        const res = splits.map((each: any) => JSON.parse(each));
+      console.log(splits, 'splits here')
+      const res = splits
+        .map((each: string) => each.replace(/\'/g, '\"'))
+        .map((each: string) => JSON.parse(each));
+      console.log(res, 'res bro')
         return res;
-      }
-      return [JSON.parse(splits[0])]
     } catch (err) {
       return []
     }

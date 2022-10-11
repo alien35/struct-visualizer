@@ -36,7 +36,7 @@ export const Variable = ({ variable, onRemove, onRequestEdit }: any) => {
   <Paper style={{display: "flex"}} square elevation={3}>
     <div style={{color: "darkred", cursor: "pointer"}} onClick={onRemove}>X</div>&nbsp;
     <div onClick={onRequestEdit} key={variable.id}>
-      {variable.name}: {val}
+      {variable.name}: <strong>{val}</strong>
     </div>
   </Paper>
 </Box>

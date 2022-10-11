@@ -146,6 +146,9 @@ function TreeDrawing() {
       // always start at leftmost active node
       // @ts-ignore
       const bfsPath = prepareBfs(path);
+      if (!Array.isArray(bfsPath?.[0])) {
+        return;
+      }
       // Init a new root binary tree node
       // @ts-ignore
       const root = new BinarySearchTreeNode<number>(bfsPath[0][0]);

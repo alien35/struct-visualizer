@@ -18,11 +18,25 @@ function Variables() {
   }
 
   const applyCreateVariable = () => {
-    setVariables([...variables.filter((variable: any) => variable.id !== variableEditId), {
-      name: variableName,
-      value: defaultVariableValue,
-      id: new Date().toISOString()
-    }])
+    if (isEditing) {
+      setVariables(variables.map((variable: any) => {
+        if (variable.id !== variableEditId) {
+          return variable
+        }
+        return {
+          ...variable,
+          name: variableName,
+          value: defaultVariableValue
+        }
+      }))
+    } else {
+      setVariables([...variables.filter((variable: any) => variable.id !== variableEditId), {
+        name: variableName,
+        value: defaultVariableValue,
+        id: new Date().toISOString()
+      }])
+    }
+    
     setVariableEditId("");
     setVariableName("");
     setDefaultVariableValue("");
