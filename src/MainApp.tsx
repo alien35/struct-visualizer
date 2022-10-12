@@ -6,20 +6,13 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import MainSection from './MainSection';
 import RightSection from './RightSection';
 import MenuAppBar from './components/MenuAppBar';
+import Version2 from './Version2';
 
 function MainApp() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <MenuAppBar />
-      <Grid container>
-        <Grid item xs={6}>
-          <MainSection />
-        </Grid>
-        <Grid item xs={6}>
-          <RightSection />
-        </Grid>
-      </Grid>
+      <Version2 />
     </DndProvider>
   )
 }

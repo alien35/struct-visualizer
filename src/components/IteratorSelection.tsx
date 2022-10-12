@@ -69,14 +69,14 @@ function IteratorSelection() {
       }
       {
         hasJIterator && (
-          <Button variant="outlined" style={{fontWeight: 600, background: selectedIterator === "i" ? "#f2f200" : "initial", color: "black"}} onClick={() => updateSelectedIterator("i")}>i</Button>
+          <button style={{fontWeight: 600, background: selectedIterator === "i" ? "#f2f200" : "initial", color: "black"}} onClick={() => updateSelectedIterator("i")}>i</button>
         )
       }
       {
         hasJIterator && (
           <>
             &nbsp;
-            <Button variant="outlined" style={{color: "black", fontWeight: 600, background: selectedIterator === "j" ? "#ff8080" : "initial"}} onClick={() => updateSelectedIterator("j")}>j</Button>
+            <button style={{color: "black", fontWeight: 600, background: selectedIterator === "j" ? "#ff8080" : "initial"}} onClick={() => updateSelectedIterator("j")}>j</button>
           </>
         )
       }
@@ -85,8 +85,8 @@ function IteratorSelection() {
           <>
             <br />
             <br />
-            <Button variant="outlined" onClick={onProceedIterator}>{selectedIterator} ++</Button>
-            <Button variant="outlined" onClick={onRegressIterator}>{selectedIterator} --</Button>
+            <button onClick={onRegressIterator}>{selectedIterator} --</button>
+            <button onClick={onProceedIterator}>{selectedIterator} ++</button>
           </>
         )
       }

@@ -24,7 +24,7 @@ function Sorter() {
   }
 
   return (
-    <Button variant="outlined" onClick={triggerSort}>Sort</Button>
+    <button onClick={triggerSort}>Sort</button>
   )
 }
 

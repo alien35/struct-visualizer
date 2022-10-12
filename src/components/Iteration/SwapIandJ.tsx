@@ -28,7 +28,7 @@ function SwapIandJ() {
   }
 
   return (
-    <Button variant="outlined" onClick={triggerSwap}>Swap i and j</Button>
+    <button onClick={triggerSwap}>Swap i and j</button>
   )
 }
 

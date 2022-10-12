@@ -54,8 +54,8 @@ function SlidingWindowOptions() {
   return (
     <>
       <h4>Sliding Window</h4>
-      <Button variant="outlined" onClick={moveWindowLeft}>Move window to the left</Button>
-      <Button variant="outlined" onClick={moveWindowRight}>Move window to the right</Button>
+      <button onClick={moveWindowLeft}>Move window to the left</button>
+      <button onClick={moveWindowRight}>Move window to the right</button>
       <SlidingWindowIteration />
     </>
   )

@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  display: flex;
+  max-width: 500px;
+  position: relative;
+}
+
+.addBtn {
+}
+
+
+.addContainer {
+  width: 30px;
+  display: flex;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  background-color: white;
+  margin-top: 40px;
+}

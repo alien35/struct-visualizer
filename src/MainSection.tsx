@@ -154,8 +154,8 @@ function MainSection() {
               <div style={{display: "flex", alignItems: "baseline", marginBottom: "8px"}}>
                 <TextField value={iIteratorName} onChange={onChangeIIteratorName} id="standard-basic" label="Iterator name" variant="standard" />
               </div>
-              <Button onClick={() => setAddingLoop(false)} size="small" variant="outlined">Cancel</Button>
-              <Button onClick={applyIIterator} size="small" variant="contained">Apply</Button>
+              <button onClick={() => setAddingLoop(false)}>Cancel</button>
+              <button onClick={applyIIterator}>Apply</button>
             </Paper>
           </Box>
         )

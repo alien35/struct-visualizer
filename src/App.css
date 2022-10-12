@@ -41,3 +41,16 @@
   margin: 8px;
   cursor: pointer;
 }
+
+.EditorToolbar__root___3_Aqz {
+  display: none;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+#tree-canvas {
+  margin-left: -200px;
+}

@@ -42,7 +42,8 @@ const initialState = {
   selectedIterator: "i",
   input: "",
   modifiedInput: "",
-  scratchpadInput: RichTextEditor.createValueFromString("", 'html')
+  scratchpadInput: RichTextEditor.createValueFromString("", 'html'),
+  editingTextBlock: false
 };
 
 function reducer(state: any, action: any) {
@@ -56,7 +57,8 @@ function reducer(state: any, action: any) {
         selectedIterator: state.selectedIterator,
         input: state.input,
         modifiedInput: state.modifiedInput,
-        scratchpadInput: state.scratchpadInput
+        scratchpadInput: state.scratchpadInput,
+        editingTextBlock: state.editingTextBlock
       };
     case 'update-iterator-mode':
       return {
@@ -67,7 +69,8 @@ function reducer(state: any, action: any) {
         selectedIterator: state.selectedIterator,
         input: state.input,
         modifiedInput: state.modifiedInput,
-        scratchpadInput: state.scratchpadInput
+        scratchpadInput: state.scratchpadInput,
+        editingTextBlock: state.editingTextBlock
       }
     case 'update-indexes':
       return {
@@ -78,7 +81,8 @@ function reducer(state: any, action: any) {
         selectedIterator: state.selectedIterator,
         input: state.input,
         modifiedInput: state.modifiedInput,
-        scratchpadInput: state.scratchpadInput
+        scratchpadInput: state.scratchpadInput,
+        editingTextBlock: state.editingTextBlock
       }
     case 'update-sliding-j-indexes':
       return {
@@ -89,7 +93,8 @@ function reducer(state: any, action: any) {
         selectedIterator: state.selectedIterator,
         input: state.input,
         modifiedInput: state.modifiedInput,
-        scratchpadInput: state.scratchpadInput
+        scratchpadInput: state.scratchpadInput,
+        editingTextBlock: state.editingTextBlock
       }
     case 'update-selected-iterator':
       return {
@@ -100,7 +105,8 @@ function reducer(state: any, action: any) {
         selectedIterator: action.val,
         input: state.input,
         modifiedInput: state.modifiedInput,
-        scratchpadInput: state.scratchpadInput
+        scratchpadInput: state.scratchpadInput,
+        editingTextBlock: state.editingTextBlock
       }
     case 'update-input':
       return {
@@ -111,7 +117,8 @@ function reducer(state: any, action: any) {
         selectedIterator: state.selectedIterator,
         input: action.val,
         modifiedInput: action.val,
-        scratchpadInput: state.scratchpadInput
+        scratchpadInput: state.scratchpadInput,
+        editingTextBlock: state.editingTextBlock
       }
     case 'update-modified-input':
       return {
@@ -122,7 +129,8 @@ function reducer(state: any, action: any) {
         selectedIterator: state.selectedIterator,
         input: state.input,
         modifiedInput: action.val,
-        scratchpadInput: state.scratchpadInput
+        scratchpadInput: state.scratchpadInput,
+        editingTextBlock: state.editingTextBlock
       }
     case 'update-scratchpad-input':
       return {
@@ -133,7 +141,20 @@ function reducer(state: any, action: any) {
         selectedIterator: state.selectedIterator,
         input: state.input,
         modifiedInput: state.modifiedInput,
-        scratchpadInput: action.val
+        scratchpadInput: action.val,
+        editingTextBlock: state.editingTextBlock
+      }
+    case "set-editing-text-block":
+      return {
+        settings: state.settings,
+        iteratorMode: state.iteratorMode,
+        indexes: state.indexes,
+        slidingJIndexes: state.slidingJIndexes,
+        selectedIterator: state.selectedIterator,
+        input: state.input,
+        modifiedInput: state.modifiedInput,
+        scratchpadInput: state.scratchpadInput,
+        editingTextBlock: action.val
       }
     default:
       throw new Error();

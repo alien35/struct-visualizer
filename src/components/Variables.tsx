@@ -83,7 +83,7 @@ function Variables() {
       }
       {
         !creatingVariable && (
-          <Button onClick={() => setCreatingVariable(true)} size="small" variant="outlined">{isEditing ? "Edit" : "Create"} variable</Button>
+          <button onClick={() => setCreatingVariable(true)}>{isEditing ? "Edit" : "Create"} variable</button>
         )
       }
       {

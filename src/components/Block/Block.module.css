@@ -1,0 +1,40 @@
+.textBlock:focus {
+  background-color: #d5faff;
+}
+
+.textBlock {
+  padding: 8px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  max-width: 500px;
+  position: relative;
+}
+
+
+.hamburger {
+  cursor: pointer;
+  color: white;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container:hover .hamburger {
+  color: black;
+}
+
+.helper {
+  position: absolute;
+  margin-top: 20px;
+  background-color: white;
+  z-index: 99999;
+  border: 1px solid lightgrey;
+}
+
+.helperItem {
+  cursor: pointer;
+}

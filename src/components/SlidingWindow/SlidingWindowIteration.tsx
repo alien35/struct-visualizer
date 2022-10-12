@@ -3,7 +3,7 @@ import React from "react";
 import DispatchContext from '../../contexts/DispatchContext';
 import StateContext from '../../contexts/StateContext';
 
-function SlidingWindowIteration() {
+function SlidingWindowIteration({ iteratorMode }: any) {
 
   const state = React.useContext(StateContext);
   const dispatch = React.useContext(DispatchContext);
@@ -24,7 +24,6 @@ function SlidingWindowIteration() {
         [selectedIterator]: row[selectedIterator] + 1
       }
     })
-    console.log(newVal, 'newVal')
 
     dispatch({
       type: "update-indexes",
@@ -52,30 +51,28 @@ function SlidingWindowIteration() {
       }
     })
 
-    console.log(newVal, 'newVal')
-
     dispatch({
       type: "update-indexes",
       val: newVal
     })
   }
 
-  if (state.iteratorMode !== "sliding-window") {
+  if (iteratorMode !== "sliding-window") {
     return null;
   }
 
   return (
     <>
       <h4>Select side</h4>
-      <Button variant="outlined" style={{background: selectedIterator === "i" ? "lightgreen" : "initial"}} onClick={() => updateSelectedIterator("i")}>left</Button>
-      <Button variant="outlined" style={{background: selectedIterator === "j" ? "lightgreen" : "initial"}} onClick={() => updateSelectedIterator("j")}>right</Button>
+      <button style={{color: "black", background: selectedIterator === "i" ? "#f2f200" : "initial"}} onClick={() => updateSelectedIterator("i")}>left</button>
+      <button style={{color: "black", background: selectedIterator === "j" ? "#ff8080" : "initial"}} onClick={() => updateSelectedIterator("j")}>right</button>
       {
         (hasIIterator || hasJIterator) && (
           <>
             <br />
             <br />
-            <Button variant="outlined" onClick={onRegressIterator}>{selectedIterator === "i" ? "left" : "right"} --</Button>
-            <Button variant="outlined" onClick={onProceedIterator}>{selectedIterator === "i" ? "left" : "right"} ++</Button>
+            <button onClick={onRegressIterator}>{selectedIterator === "i" ? "left" : "right"} --</button>
+            <button onClick={onProceedIterator}>{selectedIterator === "i" ? "left" : "right"} ++</button>
           </>
         )
       }

@@ -30,11 +30,8 @@ const options = {
   type: VisualizationType.SIMPLE,
 };
 
-function TreeDrawing() {
+function TreeDrawing({ input }: any) {
 
-  const state = React.useContext(StateContext);
-  const input = state.modifiedInput;
-  const showTreeVisualizer = state.settings?.treeVisualizer;
   const [inorderData, setInorderData] = React.useState<number[]>([]);
   const [preorderData, setPreorderData] = React.useState<number[]>([]);
   const [postorderData, setPostorderData] = React.useState<number[]>([]);
@@ -167,10 +164,6 @@ function TreeDrawing() {
     }
   }, [input]);
 
-  if (!showTreeVisualizer) {
-    return null;
-  }
-
   return (
     <>
       <OrderExamples
@@ -178,8 +171,8 @@ function TreeDrawing() {
         postorder={postorderData}
         preorder={preorderData}
       />
-      <div id="tree-drawing">
-        <canvas width="500" height="500" />
+      <div>
+        <canvas id="tree-canvas" />
       </div>
     </>
   )

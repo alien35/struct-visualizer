@@ -8,7 +8,7 @@ const VisualArrayContainer = (props: any) => {
   const hasIIterator = state.settings?.primaryIterator;
   const hasJIterator = state.settings?.secondaryIterator;
 
-  const { iteratorMode } = state;
+  const { iteratorMode } = props;
 
   const selectIIndex = state.indexes?.[0]?.i;
   const selectJIndex = state.indexes?.[0]?.j;
@@ -42,8 +42,8 @@ const VisualArrayContainer = (props: any) => {
     if (!hasIIterator) {
       letter = "";
     }
-    return <div style={{position: "relative", marginBottom: 12}}>
-      <VisualArrayContent color={color} each={each} index={index} />
+    return <div style={{position: "relative", marginBottom: 40}}>
+      <VisualArrayContent iteratorMode={iteratorMode} color={color} each={each} index={index} />
       <span style={{position: "absolute", top: 56, left: 28}}>{letter}</span>
     </div>
   })

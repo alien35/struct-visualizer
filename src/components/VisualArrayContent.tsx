@@ -8,6 +8,7 @@ const VisualArrayContent = (props: any) => {
   const state = React.useContext(StateContext);
   const dispatch = React.useContext(DispatchContext)
   const selectedIterator = state.selectedIterator;
+  const { iteratorMode } = props;
 
   // const selectSlidingJIIndex = state.slidingJIndexes?.[0]?.i;
   // const selectSlidingJJIndex = state.slidingJIndexes?.[0]?.j;
@@ -103,7 +104,7 @@ const VisualArrayContent = (props: any) => {
   }
 
   const getBackground = () => {
-    if (state.iteratorMode !== "sliding-window") {
+    if (iteratorMode !== "sliding-window") {
       return dragColor || isOver || props.color;
     }
     if (isInJ() && isInI()) {

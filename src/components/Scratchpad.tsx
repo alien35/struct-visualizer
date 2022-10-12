@@ -3,7 +3,7 @@ import RichTextEditor from 'react-rte';
 import DispatchContext from "../contexts/DispatchContext";
 import StateContext from "../contexts/StateContext";
 
-function Scratchpad() {
+function Scratchpad({ scratchValue }: any) {
 
   const state = React.useContext(StateContext);
   const dispatch = React.useContext(DispatchContext);
