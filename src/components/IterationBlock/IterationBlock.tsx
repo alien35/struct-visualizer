@@ -54,7 +54,10 @@ function IterationBlock({ item }: any) {
             ))
           }
           <IteratorSelection indexes={indexes} updateIndexes={updateIndexes} />
+          <br />
+          <br />
           <hr />
+          <br />
         </div>
       </div>
   )
