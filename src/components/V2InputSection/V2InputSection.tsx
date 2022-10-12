@@ -31,6 +31,11 @@ function V2InputSection(props: any) {
     props.addText("<h1>Title</h1>")
   }
 
+  const onAddInput = () => {
+    props.addText(scratchValue?.toString("html"))
+    setScratchValue(RichTextEditor.createValueFromString("", 'html'))
+  }
+
   const onAddSlidingWindow = () => {
     props.addSlidingWindow();
   }
@@ -55,7 +60,7 @@ function V2InputSection(props: any) {
     <div className={classes.container}>
       <button className={classes.addBtn} onClick={() => setShowDropdown(true)}>+</button>
       <ScratchpadV2 scratchValue={scratchValue} updateValue={(e: any) => setScratchValue(e)} />
-      <button className={classes.addBtn} onClick={onAddText}>&nbsp;Add&nbsp;</button>
+      <button className={classes.addBtn} onClick={onAddInput}>&nbsp;Add&nbsp;</button>
       {
         showDropdown && (
           <div className={classes.dropdown} onBlur={() => setShowDropdown(false)} tabIndex={0} ref={dropdownRef}>

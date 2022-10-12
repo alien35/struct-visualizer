@@ -93,7 +93,7 @@ function Version2() {
   }
 
   return (
-    <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "40px"}}>
+    <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%", marginTop: "40px", marginBottom: "100px"}}>
       {
         blocks.map((each: any) => <Block update={(v: string) => onUpdateBlock(each.id, v)} onDelete={onDeleteBlock} item={each} />)
       }

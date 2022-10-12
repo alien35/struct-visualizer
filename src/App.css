@@ -54,3 +54,8 @@ p {
 #tree-canvas {
   margin-left: -200px;
 }
+
+code,
+pre {
+  background-color: #f1f1f1;
+}
