@@ -10,8 +10,8 @@ const VisualArrayContainer = (props: any) => {
 
   const { iteratorMode } = props;
 
-  const selectIIndex = state.indexes?.[0]?.i;
-  const selectJIndex = state.indexes?.[0]?.j;
+  const selectIIndex = props.indexes?.[0]?.i;
+  const selectJIndex = props.indexes?.[0]?.j;
 
   const mapped = props.value.map((each: any, index: number) => {
     let color = "initial";

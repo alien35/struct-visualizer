@@ -7,7 +7,8 @@ function SlidingWindowIteration({ iteratorMode }: any) {
 
   const state = React.useContext(StateContext);
   const dispatch = React.useContext(DispatchContext);
-  const selectedIterator = state.selectedIterator;
+  const [selectedIterator, setSelectedIterator] = React.useState("i");
+  // const selectedIterator = state.selectedIterator;
 
   const hasIIterator = state.settings?.primaryIterator;
   const hasJIterator = state.settings?.secondaryIterator;
@@ -64,8 +65,8 @@ function SlidingWindowIteration({ iteratorMode }: any) {
   return (
     <>
       <h4>Select side</h4>
-      <button style={{color: "black", background: selectedIterator === "i" ? "#f2f200" : "initial"}} onClick={() => updateSelectedIterator("i")}>left</button>
-      <button style={{color: "black", background: selectedIterator === "j" ? "#ff8080" : "initial"}} onClick={() => updateSelectedIterator("j")}>right</button>
+      <button style={{color: "black", background: selectedIterator === "i" ? "#f2f200" : "initial"}} onClick={() => setSelectedIterator("i")}>left</button>
+      <button style={{color: "black", background: selectedIterator === "j" ? "#ff8080" : "initial"}} onClick={() => setSelectedIterator("j")}>right</button>
       {
         (hasIIterator || hasJIterator) && (
           <>

@@ -13,6 +13,10 @@ function IterationBlock({ item }: any) {
   
   const [inputVal, setInputVal] = React.useState(JSON.stringify(item.value));
 
+  const [indexes, setIndexes] = React.useState([{
+    i: 0,
+    j: 0
+  }])
 
   const getInputArrays = () => {
     try {
@@ -27,11 +31,13 @@ function IterationBlock({ item }: any) {
       return []
     }
   }
-  
-  const hasIIterator = state.settings?.primaryIterator;
-  const hasJIterator = state.settings?.secondaryIterator;
-  const iIndex = state.indexes?.[0]?.i;
-  const jIndex = state.indexes?.[0]?.j;
+
+  const updateIndexes = (newVal: any[]) => {
+    setIndexes(newVal);
+  }
+
+  const iIndex = indexes?.[0]?.i;
+  const jIndex = indexes?.[0]?.j;
 
   const onChangeInput = (e: any) => {
     setInputVal(e.target.value);
@@ -43,11 +49,11 @@ function IterationBlock({ item }: any) {
           {
             getInputArrays().map((each: any) => (
               <div style={{display: "flex"}}>
-                <VisualArrayContainer hasJIterator={hasJIterator} hasIIterator={hasIIterator} iIndex={iIndex} jIndex={jIndex} value={each} />
+                <VisualArrayContainer indexes={indexes} hasJIterator={true} hasIIterator={true} iIndex={iIndex} jIndex={jIndex} value={each} />
               </div>
             ))
           }
-          <IteratorSelection />
+          <IteratorSelection indexes={indexes} updateIndexes={updateIndexes} />
           <hr />
         </div>
       </div>

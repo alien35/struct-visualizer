@@ -3,19 +3,16 @@ import React from "react";
 import DispatchContext from '../contexts/DispatchContext';
 import StateContext from '../contexts/StateContext';
 
-function IteratorSelection() {
+function IteratorSelection({ updateIndexes, indexes }: any) {
 
   const state = React.useContext(StateContext);
   const dispatch = React.useContext(DispatchContext);
-  const selectedIterator = state.selectedIterator;
-
-  const hasIIterator = state.settings?.primaryIterator;
-  const hasJIterator = state.settings?.secondaryIterator;
+  const [selectedIterator, setSelectedIterator] = React.useState("i");
 
   const onProceedIterator = () => {
     const rowIndex = 0;
 
-    const newVal = state.indexes.map((row: any, index: any) => {
+    const newVal = indexes.map((row: any, index: any) => {
       if (index !== rowIndex) {
         return row;
       }
@@ -26,10 +23,7 @@ function IteratorSelection() {
     })
     console.log(newVal, 'newVal')
 
-    dispatch({
-      type: "update-indexes",
-      val: newVal
-    })
+    updateIndexes(newVal)
   }
 
   const updateSelectedIterator = (which: string) => {
@@ -42,7 +36,7 @@ function IteratorSelection() {
   const onRegressIterator = () => {
     const rowIndex = 0;
 
-    const newVal = state.indexes.map((row: any, index: any) => {
+    const newVal = indexes.map((row: any, index: any) => {
       if (index !== rowIndex) {
         return row;
       }
@@ -54,42 +48,21 @@ function IteratorSelection() {
 
     console.log(newVal, 'newVal')
 
-    dispatch({
-      type: "update-indexes",
-      val: newVal
-    })
+    updateIndexes(newVal);
   }
 
   return (
     <>
-      {
-        (hasJIterator) && (
-          <h4>Select iterator</h4>
-        )
-      }
-      {
-        hasJIterator && (
-          <button style={{fontWeight: 600, background: selectedIterator === "i" ? "#f2f200" : "initial", color: "black"}} onClick={() => updateSelectedIterator("i")}>i</button>
-        )
-      }
-      {
-        hasJIterator && (
-          <>
-            &nbsp;
-            <button style={{color: "black", fontWeight: 600, background: selectedIterator === "j" ? "#ff8080" : "initial"}} onClick={() => updateSelectedIterator("j")}>j</button>
-          </>
-        )
-      }
-      {
-        (hasIIterator || hasJIterator) && (
-          <>
-            <br />
-            <br />
-            <button onClick={onRegressIterator}>{selectedIterator} --</button>
-            <button onClick={onProceedIterator}>{selectedIterator} ++</button>
-          </>
-        )
-      }
+      <h4>Select iterator</h4>
+      <button style={{fontWeight: 600, background: selectedIterator === "i" ? "#f2f200" : "initial", color: "black"}} onClick={() => setSelectedIterator("i")}>i</button>
+      &nbsp;
+      <button style={{color: "black", fontWeight: 600, background: selectedIterator === "j" ? "#ff8080" : "initial"}} onClick={() => setSelectedIterator("j")}>j</button>
+      <>
+        <br />
+        <br />
+        <button onClick={onRegressIterator}>{selectedIterator} --</button>
+        <button onClick={onProceedIterator}>{selectedIterator} ++</button>
+      </>
     </>
   )
 }
