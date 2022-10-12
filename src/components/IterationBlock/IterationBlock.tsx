@@ -6,7 +6,7 @@ import SlidingWindowIteration from "../SlidingWindow/SlidingWindowIteration";
 import VisualArrayContainer from "../VisualArrayContainer";
 import classes from "./IterationBlock.module.css";
 
-function IterationBlock({ item }: any) {
+function IterationBlock({ item, onClose }: any) {
 
   const state = React.useContext(StateContext);
   // const dispatch = React.useContext(DispatchContext);
@@ -44,7 +44,9 @@ function IterationBlock({ item }: any) {
   }
   return (
     <div className={classes.container}>
+      
         <div>
+        <button onClick={onClose}>X</button>
           <input value={inputVal} onChange={onChangeInput} />
           {
             getInputArrays().map((each: any) => (
@@ -54,6 +56,7 @@ function IterationBlock({ item }: any) {
             ))
           }
           <IteratorSelection indexes={indexes} updateIndexes={updateIndexes} />
+            
           <br />
           <br />
           <hr />

@@ -57,19 +57,19 @@ function TextBlock({ item, onDelete, update }: any) {
   }
 
   return (
-    <div ref={scratchpadRef} className={classes.container}>
-      <div onClick={() => setShowHelper(true)} className={classes.hamburger}>&#8801;</div>
-      <ScratchpadV2 scratchValue={scratchValue} updateValue={(e: any) => setScratchValue(e)}  />
-      {
-        showHelper && (
-          <div ref={helperRef} onBlur={() => setShowHelper(false)} tabIndex={0} className={classes.helper}>
-            <div onClick={() => onDelete(item.id)} className={classes.helperItem}>Delete</div>
-          </div>
-        )
-      }
-      <button onClick={onSave}>Save</button>
-    </div>
-  )
+      <div ref={scratchpadRef} className={classes.container}>
+        <div onClick={() => setShowHelper(true)} className={classes.hamburger}>&#8801;</div>
+        <ScratchpadV2 scratchValue={scratchValue} updateValue={(e: any) => setScratchValue(e)}  />
+        {
+          showHelper && (
+            <div ref={helperRef} onBlur={() => setShowHelper(false)} tabIndex={0} className={classes.helper}>
+              <div onClick={() => onDelete(item.id)} className={classes.helperItem}>Delete</div>
+            </div>
+          )
+        }
+        <button onClick={onSave}>Save</button>
+      </div>
+    )
 
 }
 

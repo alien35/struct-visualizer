@@ -45,7 +45,11 @@ function Block({ item, onDelete, update }: any) {
   }, [showTextEdit])
 
   if (item.type === "html") {
-    return <TextBlock item={item} onDelete={onDelete} update={update} />
+    return <>
+      <TextBlock item={item} onDelete={onDelete} update={update} />
+      <br />
+      <br />
+    </>
   }
 
   if (item.type === "html" && !showTextEdit) {
@@ -81,17 +85,17 @@ function Block({ item, onDelete, update }: any) {
   }
   if (item.type === "sliding-window") {
     return (
-      <SlidingWindowBlock item={item} />
+      <SlidingWindowBlock onClose={() => onDelete(item.id)} item={item} />
     )
   }
   if (item.type === "iteration") {
     return (
-      <IterationBlock item={item} />
+      <IterationBlock onClose={() => onDelete(item.id)} item={item} />
     )
   }
   if (item.type === "binary-tree") {
     return (
-      <BinaryTreeBlock item={item} />
+      <BinaryTreeBlock onClose={() => onDelete(item.id)} item={item} />
     )
   }
   return (

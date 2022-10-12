@@ -5,7 +5,7 @@ import SlidingWindowIteration from "../SlidingWindow/SlidingWindowIteration";
 import VisualArrayContainer from "../VisualArrayContainer";
 import classes from "./SlidingWindowBlock.module.css";
 
-function SlidingWindowBlock({ item }: any) {
+function SlidingWindowBlock({ item, onClose }: any) {
 
   const state = React.useContext(StateContext);
   // const dispatch = React.useContext(DispatchContext);
@@ -50,6 +50,7 @@ function SlidingWindowBlock({ item }: any) {
   return (
     <div className={classes.container}>
         <div>
+          <button onClick={onClose}>X</button>
           <input value={inputVal} onChange={onChangeInput} />
           {
             getInputArrays().map((each: any) => (
