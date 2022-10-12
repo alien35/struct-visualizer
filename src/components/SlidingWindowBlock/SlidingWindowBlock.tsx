@@ -35,6 +35,18 @@ function SlidingWindowBlock({ item }: any) {
   const onChangeInput = (e: any) => {
     setInputVal(e.target.value);
   }
+
+  const getSumOfAllValuesInBetween = () => {
+    if (!inputVal) {
+      return "";
+    }
+    try {
+      return JSON.parse(inputVal).slice(iIndex, jIndex + 1).reduce((sum: number, each: number) => sum + each, 0);
+    } catch (err) {
+      return "";
+    }
+  }
+
   return (
     <div className={classes.container}>
         <div>
@@ -47,6 +59,7 @@ function SlidingWindowBlock({ item }: any) {
             ))
           }
           <SlidingWindowIteration iteratorMode="sliding-window" />
+          <div>Sum: {getSumOfAllValuesInBetween()}</div>
           <hr />
         </div>
       </div>
