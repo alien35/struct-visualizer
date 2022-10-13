@@ -13,6 +13,12 @@ function IterationBlock({ item, onClose }: any) {
   
   const [inputVal, setInputVal] = React.useState(JSON.stringify(item.value));
 
+  const [modifiedInput, setModifiedInput] = React.useState(JSON.stringify(item.value));
+
+  React.useEffect(() => {
+    setModifiedInput(inputVal);
+  }, [inputVal]);
+
   const [indexes, setIndexes] = React.useState([{
     i: 0,
     j: 0
@@ -20,7 +26,7 @@ function IterationBlock({ item, onClose }: any) {
 
   const getInputArrays = () => {
     try {
-      const splits = inputVal.split("\n");
+      const splits = modifiedInput.split("\n");
       console.log(splits, 'splits here')
       const res = splits
         .map((each: string) => each.replace(/'/g, '"'))
@@ -42,6 +48,15 @@ function IterationBlock({ item, onClose }: any) {
   const onChangeInput = (e: any) => {
     setInputVal(e.target.value);
   }
+
+  const onSwap = () => {
+    const data = JSON.parse(modifiedInput);
+    const temp = data[iIndex];
+    data[iIndex] = data[jIndex];
+    data[jIndex] = temp;
+    setModifiedInput(JSON.stringify(data));
+
+  }
   return (
     <div className={classes.container}>
       
@@ -56,7 +71,9 @@ function IterationBlock({ item, onClose }: any) {
             ))
           }
           <IteratorSelection indexes={indexes} updateIndexes={updateIndexes} />
-            
+          <br />
+          <br />
+          <button onClick={onSwap}>Swap i and j</button>
           <br />
           <br />
           <hr />

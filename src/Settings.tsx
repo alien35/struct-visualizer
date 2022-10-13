@@ -30,7 +30,7 @@ function Settings() {
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("scratchpad")} checked={state?.settings?.scratchpad} />} label="Scratchpad" />
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("treeVisualizer")} checked={state?.settings?.treeVisualizer} />} label="Tree Visualizer" />
       <br />
-      <h4>Iteration</h4>
+      <h4>Two pointer</h4>
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("primaryIterator")} checked={state?.settings?.primaryIterator} />} label="Primary Iterator" />
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("secondaryIterator")} checked={state?.settings?.secondaryIterator} />} label="Secondary Iterator" />
       <FormControlLabel control={<Checkbox onClick={() => onChangeState("swapIandJ")} checked={state?.settings?.swapIandJ} />} label="Swap i and j" />

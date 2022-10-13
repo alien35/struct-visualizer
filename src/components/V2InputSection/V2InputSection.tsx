@@ -64,9 +64,9 @@ function V2InputSection(props: any) {
       {
         showDropdown && (
           <div className={classes.dropdown} onBlur={() => setShowDropdown(false)} tabIndex={0} ref={dropdownRef}>
-            <div onClick={onAddBinaryTree} className={classes.clickable}>Binary Tree</div>
-            <div onClick={props.addIteration} className={classes.clickable}>Iteration</div>
-            <div onClick={onAddSlidingWindow} className={classes.clickable}>Sliding Window</div>
+            <div onClick={onAddBinaryTree} className={classes.clickable}>Binary tree</div>
+            <div onClick={props.addIteration} className={classes.clickable}>Two pointer</div>
+            <div onClick={onAddSlidingWindow} className={classes.clickable}>Sliding window</div>
             <div onClick={onAddText} className={classes.clickable}>Text</div>
             <div onClick={onAddTitle} className={classes.clickable}>Title</div>
           </div>
