@@ -32,6 +32,10 @@ const options = {
 
 function TreeDrawing({ input }: any) {
 
+  const idRef = React.useRef(null);
+
+  console.log(idRef.current, 'current')
+
   const [inorderData, setInorderData] = React.useState<number[]>([]);
   const [preorderData, setPreorderData] = React.useState<number[]>([]);
   const [postorderData, setPostorderData] = React.useState<number[]>([]);
@@ -154,10 +158,8 @@ function TreeDrawing({ input }: any) {
         
       }
       bfsTraverse([root], bfsPath, 1, [rootNode]);
-      const target =  document.querySelector('canvas')
-      if (target) {
-        drawBinaryTree(root, target, options);
-      }
+      // @ts-ignore
+      drawBinaryTree(root, idRef.current, options);
       inorder(rootNode);
       preorder(rootNode);
       postorder(rootNode);
@@ -172,7 +174,7 @@ function TreeDrawing({ input }: any) {
         preorder={preorderData}
       />
       <div>
-        <canvas id="tree-canvas" />
+        <canvas ref={idRef} id={`canvas`} />
       </div>
     </>
   )
