@@ -93,9 +93,19 @@ function Block({ item, onDelete, update }: any) {
       <IterationBlock onClose={() => onDelete(item.id)} item={item} />
     )
   }
+  if (item.type === "non-iterative-array") {
+    return (
+      <IterationBlock nonIterative onClose={() => onDelete(item.id)} item={item} />
+    )
+  }
   if (item.type === "binary-tree") {
     return (
       <BinaryTreeBlock onClose={() => onDelete(item.id)} item={item} />
+    )
+  }
+  if (item.type === "one-pointer") {
+    return (
+      <IterationBlock onePointer onClose={() => onDelete(item.id)} item={item} />
     )
   }
   return (

@@ -6,7 +6,7 @@ import SlidingWindowIteration from "../SlidingWindow/SlidingWindowIteration";
 import VisualArrayContainer from "../VisualArrayContainer";
 import classes from "./IterationBlock.module.css";
 
-function IterationBlock({ item, onClose }: any) {
+function IterationBlock({ item, onClose, nonIterative, onePointer }: any) {
 
   const state = React.useContext(StateContext);
   // const dispatch = React.useContext(DispatchContext);
@@ -21,7 +21,7 @@ function IterationBlock({ item, onClose }: any) {
 
   const [indexes, setIndexes] = React.useState([{
     i: 0,
-    j: 0
+    j: onePointer ? -1 : 0
   }])
 
   const getInputArrays = () => {
@@ -31,7 +31,9 @@ function IterationBlock({ item, onClose }: any) {
       const res = splits
         .map((each: string) => each.replace(/'/g, '"'))
         .map((each: string) => JSON.parse(each));
-      console.log(res, 'res bro')
+        if (Array.isArray(res[0]) && res[0]?.length && Array.isArray(res[0][0])) {
+          return res[0];
+        }
         return res;
     } catch (err) {
       return []
@@ -55,8 +57,9 @@ function IterationBlock({ item, onClose }: any) {
     data[iIndex] = data[jIndex];
     data[jIndex] = temp;
     setModifiedInput(JSON.stringify(data));
-
   }
+
+  console.log(getInputArrays(), 'huhhh')
   return (
     <div className={classes.container}>
       
@@ -65,15 +68,29 @@ function IterationBlock({ item, onClose }: any) {
           <input value={inputVal} onChange={onChangeInput} />
           {
             getInputArrays().map((each: any) => (
-              <div style={{display: "flex"}}>
-                <VisualArrayContainer indexes={indexes} hasJIterator={true} hasIIterator={true} iIndex={iIndex} jIndex={jIndex} value={each} />
+              <div style={{display: "flex", flexDirection: "column"}}>
+                <VisualArrayContainer nonIterative={nonIterative} indexes={indexes} hasJIterator={true} hasIIterator={true} iIndex={iIndex} jIndex={jIndex} value={each} />
               </div>
             ))
           }
-          <IteratorSelection indexes={indexes} updateIndexes={updateIndexes} />
-          <br />
-          <br />
-          <button onClick={onSwap}>Swap i and j</button>
+          {
+            !nonIterative && (
+              <>
+                <IteratorSelection onePointer={onePointer} indexes={indexes} updateIndexes={updateIndexes} />
+                {
+                  !onePointer && (
+                    <>
+                      <br />
+                      <br />
+                      <button onClick={onSwap}>Swap i and j</button>
+                    </>
+                  )
+                }
+              </>
+            )
+          }
+          
+          
           <br />
           <br />
           <hr />

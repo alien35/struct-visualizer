@@ -54,11 +54,33 @@ function Version2() {
     ])
   }
 
+  const addNonIterativeArray = () => {
+    setBlocks([
+      ...blocks,
+      {
+        type: "non-iterative-array",
+        value: [1,2,3,4,5],
+        id: new Date().toISOString()
+      }
+    ])
+  }
+
   const addIteration = () => {
     setBlocks([
       ...blocks,
       {
         type: "iteration",
+        value: [1,2,3,4,5],
+        id: new Date().toISOString()
+      }
+    ])
+  }
+
+  const addOnePointer = () => {
+    setBlocks([
+      ...blocks,
+      {
+        type: "one-pointer",
         value: [1,2,3,4,5],
         id: new Date().toISOString()
       }
@@ -98,10 +120,12 @@ function Version2() {
         blocks.map((each: any) => <Block update={(v: string) => onUpdateBlock(each.id, v)} onDelete={onDeleteBlock} item={each} />)
       }
       <V2InputSection
+        addNonIterativeArray={addNonIterativeArray}
         addBinaryTree={addBinaryTree}
         addSlidingWindow={addSlidingWindow}
         addText={addText}
         addIteration={addIteration}
+        addOnePointer={addOnePointer}
       />
     </div>
   )

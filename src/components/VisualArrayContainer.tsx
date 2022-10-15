@@ -42,6 +42,10 @@ const VisualArrayContainer = (props: any) => {
     if (!hasIIterator) {
       letter = "";
     }
+    if (props.nonIterative) {
+      letter = "";
+      color = "";
+    }
     return <div style={{position: "relative", marginBottom: 40}}>
       <VisualArrayContent iteratorMode={iteratorMode} color={color} each={each} index={index} />
       <span style={{position: "absolute", top: 56, left: 28}}>{letter}</span>
